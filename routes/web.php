@@ -13,11 +13,28 @@ use App\Http\Controllers\ContactController;
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
-Route::get('/management', [ManagementController::class, 'index'])->name('management');
-Route::get('/short-courses', [ShortCourseController::class, 'index'])->name('short-courses');
-Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
-Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
+Route::get('/courses', function () {
+    return view('courses');
+})->name('courses');
+Route::get('/course-detail', function () {
+    return view('course-detail');
+})->name('course-detail');
+Route::get('/management', function () {
+    return view('management');
+})->name('management');
+Route::get('/admission', function () {
+    return view('admission');
+})->name('admission');
+Route::get('/notification', function () {
+    return view('notification');
+})->name('notification');
+Route::get('/gallery', function () {
+    return view('gallery');
+})->name('gallery');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/certificates', function () {
+    return view('certificates');
+})->name('certificates');
 
 // Admin Authentication Routes
 Route::prefix('admin')->name('admin.')->group(function () {
