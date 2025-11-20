@@ -27,11 +27,11 @@
                     </div>
                     
                     <div class="col-12">
-                        <label for="certificate_pdf" class="form-label fw-semibold">Certificate PDF</label>
-                        @if($certificate->certificate_pdf)
+                        <label for="certificate_file" class="form-label fw-semibold">Certificate File</label>
+                        @if($certificate->certificate_file)
                             <div class="mb-3">
                                 <p class="text-muted small mb-2">Current PDF:</p>
-                                <a href="{{ asset('storage/' . $certificate->certificate_pdf) }}" 
+                                <a href="{{ asset('storage/' . $certificate->certificate_file) }}" 
                                    target="_blank" 
                                    class="btn btn-sm btn-outline-primary">
                                     <i class="bi bi-file-pdf me-1"></i> View Current PDF
@@ -39,12 +39,12 @@
                             </div>
                         @endif
                         <input type="file" 
-                               class="form-control @error('certificate_pdf') is-invalid @enderror" 
-                               id="certificate_pdf" 
-                               name="certificate_pdf" 
+                               class="form-control @error('certificate_file') is-invalid @enderror" 
+                               id="certificate_file" 
+                               name="certificate_file" 
                                accept=".pdf">
                         <small class="form-text text-muted">Leave empty to keep current PDF. Maximum file size: 5MB. Only PDF files are allowed.</small>
-                        @error('certificate_pdf')
+                        @error('certificate_file')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

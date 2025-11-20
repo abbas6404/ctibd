@@ -18,6 +18,7 @@
                     <thead class="table-light">
                         <tr>
                             <th class="border-0">Image</th>
+                            <th class="border-0">Title</th>
                             <th class="border-0">Description</th>
                             <th class="border-0">Created</th>
                             <th class="border-0 text-end">Actions</th>
@@ -38,6 +39,11 @@
                                             <i class="bi bi-image text-muted fs-4"></i>
                                         </div>
                                     @endif
+                                </td>
+                                <td>
+                                    <div class="fw-semibold">
+                                        {{ $course->title ?? 'No title' }}
+                                    </div>
                                 </td>
                                 <td>
                                     <div class="text-muted small">
@@ -74,7 +80,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center py-5">
+                                <td colspan="5" class="text-center py-5">
                                     <div class="text-muted">
                                         <i class="bi bi-book fs-1 d-block mb-3"></i>
                                         <p class="mb-0">No courses found.</p>

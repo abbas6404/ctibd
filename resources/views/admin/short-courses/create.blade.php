@@ -12,6 +12,20 @@
                 
                 <div class="row g-3">
                     <div class="col-12">
+                        <label for="title" class="form-label fw-semibold">Course Title <span class="text-danger">*</span></label>
+                        <input type="text" 
+                               name="title" 
+                               id="title" 
+                               value="{{ old('title') }}"
+                               class="form-control @error('title') is-invalid @enderror"
+                               placeholder="Enter course title..."
+                               required>
+                        @error('title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="col-12">
                         <label for="img" class="form-label fw-semibold">Course Image</label>
                         <input type="file" 
                                name="img" 

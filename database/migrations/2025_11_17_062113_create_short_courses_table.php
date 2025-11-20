@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('short_courses', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
             $table->string('img')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

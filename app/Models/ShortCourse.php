@@ -15,6 +15,7 @@ class ShortCourse extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'title',
         'img',
         'description',
     ];

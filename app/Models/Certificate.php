@@ -11,6 +11,6 @@ class Certificate extends Model
 
     protected $fillable = [
         'registration_id',
-        'certificate_pdf',
+        'certificate_file',
     ];
 }

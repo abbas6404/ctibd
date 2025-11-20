@@ -26,14 +26,14 @@
                     </div>
                     
                     <div class="col-12">
-                        <label for="certificate_pdf" class="form-label fw-semibold">Certificate PDF</label>
+                        <label for="certificate_file" class="form-label fw-semibold">Certificate File</label>
                         <input type="file" 
-                               class="form-control @error('certificate_pdf') is-invalid @enderror" 
-                               id="certificate_pdf" 
-                               name="certificate_pdf" 
+                               class="form-control @error('certificate_file') is-invalid @enderror" 
+                               id="certificate_file" 
+                               name="certificate_file" 
                                accept=".pdf">
                         <small class="form-text text-muted">Maximum file size: 5MB. Only PDF files are allowed.</small>
-                        @error('certificate_pdf')
+                        @error('certificate_file')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

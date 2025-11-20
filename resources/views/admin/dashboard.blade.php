@@ -294,8 +294,8 @@
                                                 <i class="bi bi-calendar3 me-1"></i>{{ $certificate->created_at->format('M d, Y') }}
                                             </p>
                                         </div>
-                                        @if($certificate->certificate_pdf)
-                                            <a href="{{ asset('storage/' . $certificate->certificate_pdf) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        @if($certificate->certificate_file)
+                                            <a href="{{ asset('storage/' . $certificate->certificate_file) }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                                 <i class="bi bi-file-pdf"></i>
                                             </a>
                                         @endif

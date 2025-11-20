@@ -2,133 +2,54 @@
 
 @section('content')
 <!-- Hero Section -->
-<div style="background: linear-gradient(135deg, #006F3F 0%, #007B4F 100%); padding: 5rem 0; margin-bottom: 4rem;">
-    <div class="container text-center text-white">
-        <h1 style="font-family: 'Montserrat', sans-serif; font-size: 3rem; font-weight: 700; margin-bottom: 1.5rem;">
+<div style="background: linear-gradient(135deg, #006F3F 0%, #007B4F 100%); padding: 3rem 0; margin-bottom: 3rem;">
+    <div class="container text-center text-white px-3">
+        <h1 style="font-family: 'Montserrat', sans-serif; font-size: clamp(1.75rem, 5vw, 3rem); font-weight: 700; margin-bottom: 1rem;">
             Our Courses
         </h1>
-        <p style="font-family: 'Inter', sans-serif; font-size: 1.25rem; opacity: 0.9; max-width: 700px; margin: 0 auto;">
+        <p style="font-family: 'Inter', sans-serif; font-size: clamp(1rem, 2.5vw, 1.25rem); opacity: 0.9; max-width: 700px; margin: 0 auto;">
             Discover our comprehensive range of professional training programs designed to advance your career and skills
         </p>
     </div>
 </div>
 
 <!-- All Courses Section -->
-<section class="py-5" style="background: #f8f9fa; margin-bottom: 4rem;">
-    <div class="container">
-        <div class="row g-4">
-            <!-- Course 1: Business Development -->
-            <div class="col-lg-3 col-md-6">
-                <a href="{{ route('course-detail') }}" style="text-decoration: none; color: inherit;">
-                    <div class="bg-white h-100" style="border-radius: 1.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
-                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 120px;"></div>
-                        <div class="p-3">
-                            <h5 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #2d3748; margin-bottom: 0.5rem;">
-                                Business Development Professional
-                            </h5>
-                        </div>
+<section class="py-4" style="background: #f8f9fa; margin-bottom: 3rem;">
+    <div class="container px-3 px-md-4">
+        @if($courses->count() > 0)
+            <div class="row g-3 g-md-4">
+                @foreach($courses as $course)
+                    <div class="col-lg-3 col-md-6">
+                        <a href="{{ route('course-detail', ['id' => $course->id]) }}" style="text-decoration: none; color: inherit;">
+                            <div class="bg-white h-100" style="border-radius: 1.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.12)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';">
+                                @if($course->img)
+                                    <div style="height: 120px; overflow: hidden; background: #f0f0f0;">
+                                        <img src="{{ asset('storage/' . $course->img) }}" 
+                                             alt="{{ $course->title }}" 
+                                             style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                @else
+                                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 120px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="bi bi-book" style="font-size: 3rem; color: rgba(255,255,255,0.5);"></i>
+                                    </div>
+                                @endif
+                                <div class="p-3">
+                                    <h5 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #2d3748; margin-bottom: 0.5rem;">
+                                        {{ $course->title }}
+                                    </h5>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                @endforeach
             </div>
-            
-            <!-- Course 2: IT Training -->
-            <div class="col-lg-3 col-md-6">
-                <a href="{{ route('course-detail') }}" style="text-decoration: none; color: inherit;">
-                    <div class="bg-white h-100" style="border-radius: 1.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
-                        <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); height: 120px;"></div>
-                        <div class="p-3">
-                            <h5 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #2d3748; margin-bottom: 0.5rem;">
-                                IT Professional Certification
-                            </h5>
-                        </div>
-                    </div>
-                </a>
+        @else
+            <div class="text-center py-5">
+                <i class="bi bi-book" style="font-size: 4rem; color: #cbd5e0; margin-bottom: 1rem;"></i>
+                <h3 style="font-family: 'Montserrat', sans-serif; color: #4a5568; margin-bottom: 0.5rem;">No Courses Available</h3>
+                <p style="font-family: 'Inter', sans-serif; color: #718096;">Check back soon for our upcoming courses.</p>
             </div>
-            
-            <!-- Course 3: Digital Marketing -->
-            <div class="col-lg-3 col-md-6">
-                <a href="{{ route('course-detail') }}" style="text-decoration: none; color: inherit;">
-                    <div class="bg-white h-100" style="border-radius: 1.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
-                        <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); height: 120px;"></div>
-                        <div class="p-3">
-                            <h5 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #2d3748; margin-bottom: 0.5rem;">
-                                Digital Marketing Mastery
-                            </h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            
-            <!-- Course 4: Project Management -->
-            <div class="col-lg-3 col-md-6">
-                <a href="{{ route('course-detail') }}" style="text-decoration: none; color: inherit;">
-                    <div class="bg-white h-100" style="border-radius: 1.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
-                        <div style="background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); height: 120px;"></div>
-                        <div class="p-3">
-                            <h5 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #2d3748; margin-bottom: 0.5rem;">
-                                Project Management
-                            </h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            
-            <!-- Course 5: Data Analytics -->
-            <div class="col-lg-3 col-md-6">
-                <a href="{{ route('course-detail') }}" style="text-decoration: none; color: inherit;">
-                    <div class="bg-white h-100" style="border-radius: 1.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
-                        <div style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); height: 120px;"></div>
-                        <div class="p-3">
-                            <h5 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #2d3748; margin-bottom: 0.5rem;">
-                                Data Analytics
-                            </h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            
-            <!-- Course 6: Web Development -->
-            <div class="col-lg-3 col-md-6">
-                <a href="{{ route('course-detail') }}" style="text-decoration: none; color: inherit;">
-                    <div class="bg-white h-100" style="border-radius: 1.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
-                        <div style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); height: 120px;"></div>
-                        <div class="p-3">
-                            <h5 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #2d3748; margin-bottom: 0.5rem;">
-                                Web Development
-                            </h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            
-            <!-- Course 7: Leadership Skills -->
-            <div class="col-lg-3 col-md-6">
-                <a href="{{ route('course-detail') }}" style="text-decoration: none; color: inherit;">
-                    <div class="bg-white h-100" style="border-radius: 1.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
-                        <div style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%); height: 120px;"></div>
-                        <div class="p-3">
-                            <h5 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #2d3748; margin-bottom: 0.5rem;">
-                                Leadership Skills
-                            </h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            
-            <!-- Course 8: Cybersecurity -->
-            <div class="col-lg-3 col-md-6">
-                <a href="{{ route('course-detail') }}" style="text-decoration: none; color: inherit;">
-                    <div class="bg-white h-100" style="border-radius: 1.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
-                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 120px;"></div>
-                        <div class="p-3">
-                            <h5 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #2d3748; margin-bottom: 0.5rem;">
-                                Cybersecurity
-                            </h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
+        @endif
     </div>
 </section>
 @endsection

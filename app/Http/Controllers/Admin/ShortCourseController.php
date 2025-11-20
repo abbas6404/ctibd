@@ -32,6 +32,7 @@ class ShortCourseController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'title' => 'required|string|max:255',
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'nullable|string',
         ]);
@@ -67,6 +68,7 @@ class ShortCourseController extends Controller
     public function update(Request $request, ShortCourse $shortCourse)
     {
         $validated = $request->validate([
+            'title' => 'required|string|max:255',
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'nullable|string',
         ]);

@@ -30,8 +30,8 @@
                                     <div class="fw-semibold">{{ $certificate->registration_id }}</div>
                                 </td>
                                 <td>
-                                    @if($certificate->certificate_pdf)
-                                        <a href="{{ asset('storage/' . $certificate->certificate_pdf) }}" 
+                                    @if($certificate->certificate_file)
+                                        <a href="{{ asset('storage/' . $certificate->certificate_file) }}" 
                                            target="_blank" 
                                            class="btn btn-sm btn-outline-primary">
                                             <i class="bi bi-file-pdf me-1"></i> View PDF

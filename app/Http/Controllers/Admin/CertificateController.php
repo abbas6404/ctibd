@@ -33,11 +33,11 @@ class CertificateController extends Controller
     {
         $validated = $request->validate([
             'registration_id' => 'required|string|max:255',
-            'certificate_pdf' => 'required|mimes:pdf|max:5120',
+            'certificate_file' => 'required|mimes:pdf|max:5120',
         ]);
 
-        if ($request->hasFile('certificate_pdf')) {
-            $validated['certificate_pdf'] = $request->file('certificate_pdf')->store('certificates', 'public');
+        if ($request->hasFile('certificate_file')) {
+            $validated['certificate_file'] = $request->file('certificate_file')->store('certificates', 'public');
         }
 
         Certificate::create($validated);
@@ -60,16 +60,16 @@ class CertificateController extends Controller
     {
         $validated = $request->validate([
             'registration_id' => 'required|string|max:255',
-            'certificate_pdf' => 'nullable|mimes:pdf|max:5120',
+            'certificate_file' => 'nullable|mimes:pdf|max:5120',
         ]);
 
-        if ($request->hasFile('certificate_pdf')) {
-            if ($certificate->certificate_pdf) {
-                Storage::disk('public')->delete($certificate->certificate_pdf);
+        if ($request->hasFile('certificate_file')) {
+            if ($certificate->certificate_file) {
+                Storage::disk('public')->delete($certificate->certificate_file);
             }
-            $validated['certificate_pdf'] = $request->file('certificate_pdf')->store('certificates', 'public');
+            $validated['certificate_file'] = $request->file('certificate_file')->store('certificates', 'public');
         } else {
-            unset($validated['certificate_pdf']);
+            unset($validated['certificate_file']);
         }
 
         $certificate->update($validated);
@@ -82,8 +82,8 @@ class CertificateController extends Controller
      */
     public function destroy(Certificate $certificate)
     {
-        if ($certificate->certificate_pdf) {
-            Storage::disk('public')->delete($certificate->certificate_pdf);
+        if ($certificate->certificate_file) {
+            Storage::disk('public')->delete($certificate->certificate_file);
         }
 
         $certificate->delete();
