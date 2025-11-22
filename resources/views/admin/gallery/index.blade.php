@@ -68,9 +68,7 @@
         
         @if($galleries->hasPages())
             <div class="mt-4">
-                <div class="d-flex justify-content-center">
-                    {{ $galleries->links() }}
-                </div>
+                {{ $galleries->links('pagination::bootstrap-5') }}
             </div>
         @endif
     @else

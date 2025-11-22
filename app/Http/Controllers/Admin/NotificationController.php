@@ -21,9 +21,10 @@ class NotificationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('admin.notifications.create');
+        $selectedType = $request->get('type', old('type', 'notification_page'));
+        return view('admin.notifications.create', compact('selectedType'));
     }
 
     /**
@@ -113,9 +114,12 @@ class NotificationController extends Controller
                 Storage::disk('public')->delete($notification->img);
             }
             $validated['img'] = $request->file('img')->store('notifications', 'public');
-        } elseif ($request->type === 'popup_notification' && !$notification->img) {
-            // If popup type and no image exists, this should have been caught by validation
-            return back()->withErrors(['img' => 'Image is required for popup notifications.']);
+        } elseif ($request->type === 'top_notification') {
+            // Remove image if switching to top notification type
+            if ($notification->img) {
+                Storage::disk('public')->delete($notification->img);
+                $validated['img'] = null;
+            }
         }
 
         $notification->update($validated);

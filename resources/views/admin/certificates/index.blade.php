@@ -88,10 +88,8 @@
             </div>
             
             @if($certificates->hasPages())
-                <div class="card-footer border-top bg-white">
-                    <div class="d-flex justify-content-center">
-                        {{ $certificates->links() }}
-                    </div>
+                <div class="card-footer border-top bg-white py-3">
+                    {{ $certificates->links('pagination::bootstrap-5') }}
                 </div>
             @endif
         </div>

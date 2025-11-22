@@ -160,9 +160,9 @@
             <div class="col-12">
                 <div class="rounded-3 overflow-hidden" style="box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-radius: 1.5rem;">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.8978893087!2d90.42337131498253!3d23.750881394599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b5b4b5b5b5b5%3A0x1234567890abcdef!2sUttarkhan%2C%20Dhaka%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1234567890123" 
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d912.0744404102378!2d90.42427290978705!3d23.87905782644687!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c5d9c8a418dd%3A0x5d2090485724e292!2sConfidence%20Training%20Institute!5e0!3m2!1sen!2sbd!4v1763806988654!5m2!1sen!2sbd" 
                         width="100%" 
-                        height="clamp(250px, 40vw, 400px)" 
+                        height="450" 
                         style="border:0;" 
                         allowfullscreen="" 
                         loading="lazy" 

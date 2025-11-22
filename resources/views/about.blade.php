@@ -201,6 +201,50 @@
     </div>
 </section>
 
+<!-- Trade License Section -->
+<section class="py-5" style="background: #f8fafc; margin-bottom: clamp(2rem, 5vw, 3rem);">
+    <div class="container px-3 px-md-4">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <h2 style="font-family: 'Montserrat', sans-serif; font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700; color: #2d3748; margin-bottom: 1rem; text-align: center;">
+                    <i class="bi bi-file-earmark-pdf me-2"></i>Trade License
+                </h2>
+                <p style="font-family: 'Inter', sans-serif; color: #4a5568; line-height: 1.7; text-align: center; max-width: 800px; margin: 0 auto 2rem; font-size: clamp(1rem, 2vw, 1.125rem);">
+                    View our official trade license document issued by Dhaka North City Corporation.
+                </p>
+                <div style="background: white; border-radius: clamp(0.75rem, 2vw, 1rem); padding: clamp(1rem, 2vw, 1.5rem); box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <iframe 
+                        src="{{ asset('docs/trade-license.pdf') }}" 
+                        style="width: 100%; height: 600px; border: none; border-radius: clamp(0.5rem, 1.5vw, 0.75rem);"
+                        title="Trade License PDF">
+                    </iframe>
+                    <div class="text-center mt-3">
+                        <a href="{{ asset('docs/trade-license.pdf') }}" 
+                           download 
+                           class="btn d-inline-flex align-items-center justify-content-center gap-2" 
+                           style="
+                               background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); 
+                               color: white; 
+                               border: none; 
+                               padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem); 
+                               border-radius: clamp(0.5rem, 1.5vw, 0.75rem); 
+                               font-weight: 600; 
+                               font-size: clamp(0.875rem, 2vw, 1rem);
+                               text-decoration: none;
+                               transition: all 0.3s ease;
+                           "
+                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(37, 99, 235, 0.4)';"
+                           onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)';">
+                            <i class="bi bi-download"></i>
+                            <span>Download PDF</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Our Expertise Section -->
 <section class="py-4" style="background: #C3ECFB; margin-bottom: clamp(2rem, 5vw, 3rem);">
     <div class="container px-3 px-md-4">

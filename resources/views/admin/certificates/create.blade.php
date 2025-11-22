@@ -26,16 +26,22 @@
                     </div>
                     
                     <div class="col-12">
-                        <label for="certificate_file" class="form-label fw-semibold">Certificate File</label>
+                        <label for="certificate_file" class="form-label fw-semibold">Certificate File <span class="text-danger">*</span></label>
                         <input type="file" 
                                class="form-control @error('certificate_file') is-invalid @enderror" 
                                id="certificate_file" 
                                name="certificate_file" 
-                               accept=".pdf">
+                               accept="application/pdf,.pdf"
+                               required>
                         <small class="form-text text-muted">Maximum file size: 5MB. Only PDF files are allowed.</small>
                         @error('certificate_file')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="text-danger small mt-1 d-block">
+                                <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                            </div>
                         @enderror
+                        <div id="fileError" class="text-danger small mt-1 d-none">
+                            <i class="bi bi-exclamation-circle me-1"></i><span id="fileErrorText"></span>
+                        </div>
                     </div>
                 </div>
                 
@@ -53,3 +59,61 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const fileInput = document.getElementById('certificate_file');
+    const fileError = document.getElementById('fileError');
+    const fileErrorText = document.getElementById('fileErrorText');
+    
+    // Client-side validation on form submit
+    form.addEventListener('submit', function(e) {
+        // Clear previous errors
+        fileError.classList.add('d-none');
+        fileInput.classList.remove('is-invalid');
+        
+        // Check if file is selected
+        if (!fileInput.files || fileInput.files.length === 0) {
+            e.preventDefault();
+            fileErrorText.textContent = 'Please select a certificate file to upload.';
+            fileError.classList.remove('d-none');
+            fileInput.classList.add('is-invalid');
+            fileInput.focus();
+            return false;
+        }
+        
+        // Check file type
+        const file = fileInput.files[0];
+        if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+            e.preventDefault();
+            fileErrorText.textContent = 'Only PDF files are allowed.';
+            fileError.classList.remove('d-none');
+            fileInput.classList.add('is-invalid');
+            fileInput.focus();
+            return false;
+        }
+        
+        // Check file size (5MB = 5 * 1024 * 1024 bytes)
+        const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+        if (file.size > maxSize) {
+            e.preventDefault();
+            fileErrorText.textContent = 'The file size must not exceed 5MB.';
+            fileError.classList.remove('d-none');
+            fileInput.classList.add('is-invalid');
+            fileInput.focus();
+            return false;
+        }
+    });
+    
+    // Clear error when file is selected
+    fileInput.addEventListener('change', function() {
+        if (this.files && this.files.length > 0) {
+            fileError.classList.add('d-none');
+            this.classList.remove('is-invalid');
+        }
+    });
+});
+</script>
+@endpush

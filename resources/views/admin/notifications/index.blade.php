@@ -108,10 +108,8 @@
             </div>
             
             @if($notifications->hasPages())
-                <div class="card-footer border-top bg-white">
-                    <div class="d-flex justify-content-center">
-                        {{ $notifications->links() }}
-                    </div>
+                <div class="card-footer border-top bg-white py-3">
+                    {{ $notifications->links('pagination::bootstrap-5') }}
                 </div>
             @endif
         </div>
