@@ -83,11 +83,11 @@
                     </li>
                     <li class="d-flex align-items-start mb-1 mb-md-2" style="color:#9ca3af;">
                         <i class="bi bi-envelope" style="color:#60a5fa; margin-right:.5rem; font-size:clamp(0.875rem, 2vw, 1rem); margin-top:.25rem; flex-shrink:0;"></i>
-                        <span style="font-size:clamp(0.875rem, 2vw, 1rem); word-break:break-word;">ikarimptc@gmail.com<br>info@ctibd.net</span>
+                        <span style="font-size:clamp(0.875rem, 2vw, 1rem); word-break:break-word;">ikarimptc@gmail.com<br>info@ctibd.org</span>
                     </li>
                     <li class="d-flex align-items-center" style="color:#9ca3af;">
                         <i class="bi bi-globe" style="color:#60a5fa; margin-right:.5rem; font-size:clamp(0.875rem, 2vw, 1rem); flex-shrink:0;"></i>
-                        <span style="font-size:clamp(0.875rem, 2vw, 1rem); word-break:break-word;">www.ctibd.net</span>
+                        <a href="https://www.ctibd.org" target="_blank" rel="noopener noreferrer" style="color:#9ca3af; text-decoration:none; font-size:clamp(0.875rem, 2vw, 1rem); word-break:break-word;">www.ctibd.org</a>
                     </li>
                 </ul>
                 <div class="d-flex flex-wrap" style="gap:.5rem;">
@@ -101,7 +101,7 @@
         <div class="border-top pt-2 pt-md-3">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small">
                 <p class="mb-2 mb-md-0 text-center text-md-start" style="color:#6b7280; font-size:clamp(0.75rem, 1.5vw, 0.875rem);">
-                    © {{ date('Y') }} <span class="fw-semibold" style="color:#60a5fa;">Confidence Training Institute</span> • Established 2021 • All Rights Reserved
+                    © <span style="font-size: clamp(0.7rem, 1.3vw, 0.8rem);">Powered by <a href="https://aioinnovation.com" target="_blank" rel="noopener noreferrer" style="color:#60a5fa; text-decoration:none; font-weight:600;">AIO Innovation Limited</a></span>
                 </p>
                 <div class="d-flex flex-wrap justify-content-center" style="gap:1rem;">
                     <a href="#" style="color:#6b7280; text-decoration:none; font-size:clamp(0.75rem, 1.5vw, 0.875rem);">Privacy Policy</a>

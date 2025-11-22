@@ -27,7 +27,9 @@ class DatabaseSeeder extends Seeder
             EmployeeSeeder::class,
             ShortCourseSeeder::class,
             NotificationSeeder::class,
+            GalleryCategorySeeder::class,
             GallerySeeder::class,
+            CertificateSeeder::class,
         ]);
     }
 }

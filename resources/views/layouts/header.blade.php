@@ -7,11 +7,17 @@
     <div class="position-relative text-white" style="background:linear-gradient(to right, #b91c1c, #dc2626, #be123c);">
         <div class="container px-2 px-md-4 py-1 py-md-2">
             <div class="d-flex align-items-center justify-content-between flex-wrap">
-                <div class="ticker-wrap" style="flex:1; min-width:0; margin-right:0.5rem; order:1;">
-                    <div class="ticker">
-                        <span class="ticker-item live-support"><span class="dot"></span><span class="d-none d-sm-inline">24/7 Live Support</span><span class="d-sm-none">24/7 Support</span></span>
-                        <span class="ticker-item d-none d-md-inline">+88 01724 361 141</span>
-                        <span class="ticker-item d-none d-lg-inline">ikarimptc@gmail.com</span>
+                <div class="ticker-wrap p-0" style="flex:1; min-width:0; margin-right:0.5rem; order:1;">
+                    <div class="ticker fs-5 p-0">
+                        @php
+                            $topNotification = \App\Models\Notification::where('type', 'top_notification')
+                                ->latest()
+                                ->first();
+                        @endphp
+                        @if($topNotification)
+                               {{ $topNotification->title }}
+                        @endif
+                      
                     </div>
                 </div>
                 <div class="d-flex gap-1 gap-md-2 order-2" style="flex-shrink:0;">
@@ -166,9 +172,14 @@
 .ticker-wrap { overflow:hidden; height:24px; }
 .ticker { display:inline-block; white-space:nowrap; animation:ticker 20s linear infinite; }
 .ticker-item { display:inline-block; margin-right:2rem; font-size:.875rem; }
+.ticker-item.notification-item {
+    animation:pulse 2s infinite;
+    font-size:1.2rem;
+}
 @media (max-width: 576px) {
     .ticker-wrap { height:20px; }
     .ticker-item { font-size:.7rem; margin-right:1.5rem; }
+    .ticker-item.notification-item { padding:0.2rem 0.5rem; }
 }
 @media (min-width: 768px) {
     .ticker-item { font-size:.9rem; }

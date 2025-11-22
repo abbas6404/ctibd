@@ -19,9 +19,8 @@ Route::get('/management', [ManagementController::class, 'index'])->name('managem
 Route::get('/admission', function () {
     return view('admission');
 })->name('admission');
-Route::get('/notification', function () {
-    return view('notification');
-})->name('notification');
+Route::get('/notification', [NotificationController::class, 'index'])->name('notification');
+Route::get('/notification/{id}', [NotificationController::class, 'show'])->name('notification.show');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/certificates', function () {

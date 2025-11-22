@@ -13,6 +13,35 @@
                 
                 <div class="row g-3">
                     <div class="col-12">
+                        <label for="title" class="form-label fw-semibold">Title</label>
+                        <input type="text" 
+                               name="title" 
+                               id="title" 
+                               value="{{ old('title', $gallery->title) }}"
+                               class="form-control @error('title') is-invalid @enderror">
+                        @error('title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="col-12">
+                        <label for="category_id" class="form-label fw-semibold">Category</label>
+                        <select name="category_id" 
+                                id="category_id" 
+                                class="form-select @error('category_id') is-invalid @enderror">
+                            <option value="">-- Select Category --</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ old('category_id', $gallery->category_id) == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="col-12">
                         <label for="img" class="form-label fw-semibold">Image</label>
                         @if($gallery->img)
                             <div class="mb-3">

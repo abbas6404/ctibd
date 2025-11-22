@@ -57,7 +57,7 @@
             <div class="col-md-4">
                 <div class="bg-white overflow-hidden h-100" style="border-radius:1.5rem; transition:box-shadow .3s; box-shadow:0 10px 15px rgba(0,0,0,.1), 0 4px 6px rgba(0,0,0,.05);">
                     <div class="position-relative" style="height:14rem; overflow:hidden;">
-                        <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=800&q=80" 
+                        <img src="img/Industry-Expert-Trainers.jpg" 
                              alt="Expert coding on a screen" style="width:100%; height:100%; object-fit:cover; transition:transform .7s; filter:grayscale(20%);">
                         <div style="position:absolute; top:0; right:0; bottom:0; left:0; background:linear-gradient(to top, rgba(0,0,0,.7), transparent);"></div>
                         <div style="position:absolute; bottom:1.5rem; left:1.5rem; color:white;">
@@ -77,7 +77,7 @@
             <div class="col-md-4">
                 <div class="bg-white overflow-hidden h-100" style="border-radius:1.5rem; transition:box-shadow .3s; box-shadow:0 10px 15px rgba(0,0,0,.1), 0 4px 6px rgba(0,0,0,.05);">
                     <div class="position-relative" style="height:14rem; overflow:hidden;">
-                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80" 
+                        <img src="img/welding-technology.jpg" 
                              alt="Classroom with students and teacher" style="width:100%; height:100%; object-fit:cover; transition:transform .7s;">
                         <div style="position:absolute; top:0; right:0; bottom:0; left:0; background:linear-gradient(to top, rgba(0,0,0,.6), transparent);"></div>
                         <div style="position:absolute; top:1rem; right:1rem; background:#006F3F; color:white; padding:0.5rem 1rem; border-radius:9999px; font-size:0.75rem; font-weight:700;">
@@ -96,7 +96,7 @@
             <div class="col-md-4">
                 <div class="bg-white overflow-hidden h-100" style="border-radius:1.5rem; transition:box-shadow .3s; box-shadow:0 10px 15px rgba(0,0,0,.1), 0 4px 6px rgba(0,0,0,.05);">
                     <div class="position-relative" style="height:14rem; overflow:hidden;">
-                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80" 
+                        <img src="img/Career-Support-Services.jpeg" 
                              alt="Career support" style="width:100%; height:100%; object-fit:cover; transition:transform .7s;">
                         <div style="position:absolute; top:0; right:0; bottom:0; left:0; background:linear-gradient(to top, rgba(0,0,0,.6), transparent);"></div>
                         <div style="position:absolute; top:1rem; right:1rem; background:#006F3F; color:white; padding:0.5rem 1rem; border-radius:9999px; font-size:0.75rem; font-weight:700;">
@@ -141,7 +141,7 @@
 <section class="position-relative text-white overflow-hidden"
     style="background-image: 
            linear-gradient(rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.78)), 
-           url('https://static.vecteezy.com/system/resources/previews/022/925/493/large_2x/white-abstract-geometric-shapes-background-ideal-for-poster-cover-branding-wallpaper-banner-website-presentation-modern-geometry-in-minimal-concept-classic-and-clean-3d-rendering-free-photo.jpg');">
+        url('https://static.vecteezy.com/system/resources/previews/022/925/493/large_2x/white-abstract-geometric-shapes-background-ideal-for-poster-cover-branding-wallpaper-banner-website-presentation-modern-geometry-in-minimal-concept-classic-and-clean-3d-rendering-free-photo.jpg');">
     <div style="background-attachment:scroll; background-position:center; background-size:cover; padding:4rem 0;">
 
     <!-- Optional animated glows -->
@@ -153,25 +153,73 @@
     <div class="position-relative container px-3 px-md-4" style="z-index:10;">
         <div class="row g-4 align-items-center">
 
-            <!-- Left: Photo Gallery + Floating Badge -->
+            <!-- Left: Auto-Changing Image Carousel + Floating Badge -->
             <div class="position-relative col-12 col-lg-6">
-                <div class="row g-2 g-md-3">
-                    <div class="col-6" style="display:flex; flex-direction:column; gap:1rem;">
-                        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80&crop=entropy" 
-                             alt="Students learning" style="border-radius:1rem; box-shadow:0 25px 50px rgba(0,0,0,.2); transition:transform .5s; object-fit:cover; width:100%; height:12rem;" class="img-fluid">
-                        <img src="img/WhatsApp Image 2025-11-18 at 10.05.53 AM.jpeg" 
-                             alt="Trainer teaching" style="border-radius:1rem; box-shadow:0 25px 50px rgba(0,0,0,.2); transition:transform .5s; object-fit:cover; width:100%; height:12rem;" class="img-fluid">
+                <div style="position: relative; border-radius: 1.5rem; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,.3); height: clamp(300px, 50vw, 500px);">
+                    <!-- Image Carousel Container -->
+                    <div id="aboutImageCarousel" style="position: relative; width: 100%; height: 100%;">
+                        <!-- Images will be dynamically inserted here -->
+                        <img src="{{ asset('img/about/Training-session.jpg') }}" 
+                             alt="Training session" 
+                             class="carousel-image" 
+                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;">
+                      
+                        <img src="{{ asset('img/about/Students-learning.jpg') }}" 
+                             alt="Students learning" 
+                             class="carousel-image active" 
+                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1.5s ease-in-out;">
+                        <img src="{{ asset('img/about/Trainer-teaching.jpg') }}" 
+                             alt="Trainer teaching" 
+                             class="carousel-image" 
+                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;">
+                       <img src="{{ asset('img/about/Welding-training.jpg') }}" 
+                             alt="Welding training" 
+                             class="carousel-image" 
+                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;">
+                        <img src="{{ asset('img/about/Pipe-fitting-training.jpg') }}" 
+                             alt="Pipe fitting training" 
+                             class="carousel-image" 
+                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;">
+                        <img src="{{ asset('img/about/Steel-fitter-training.jpg') }}" 
+                             alt="Steel fitter training" 
+                             class="carousel-image" 
+                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;">
+                        <img src="{{ asset('img/about/Practical-training.jpg') }}" 
+                             alt="Practical training" 
+                             class="carousel-image" 
+                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;">
+                        <img src="{{ asset('img/about/Workshop-activity.jpg') }}" 
+                             alt="Workshop activity" 
+                             class="carousel-image" 
+                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;">
                     </div>
-                    <div class="col-6" style="display:flex; flex-direction:column; gap:1rem; padding-top:2rem;">
-                        <img src="img/WhatsApp Image 2025-11-18 at 10.05.43 AM (1).jpeg" 
-                             alt="Graduation day" style="border-radius:1rem; box-shadow:0 25px 50px rgba(0,0,0,.2); transition:transform .5s; object-fit:cover; width:100%; height:12rem;" class="img-fluid">
-                        <img src="img/WhatsApp Image 2025-11-18 at 10.05.44 AM.jpeg" 
-                             alt="Happy graduate" style="border-radius:1rem; box-shadow:0 25px 50px rgba(0,0,0,.2); transition:transform .5s; object-fit:cover; width:100%; height:12rem;" class="img-fluid">
+                    
+                    <!-- Gradient Overlay for better text readability -->
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(0,0,0,0.3), transparent); pointer-events: none;"></div>
+                    
+                    <!-- Navigation Arrows -->
+                    <button class="carousel-nav carousel-prev" style="position: absolute; top: 50%; left: 1rem; transform: translateY(-50%); background: rgba(255,255,255,0.9); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 15; display: flex; align-items: center; justify-content: center; transition: all 0.3s; opacity: 0.8;" onmouseover="this.style.opacity='1'; this.style.background='rgba(255,255,255,1)';" onmouseout="this.style.opacity='0.8'; this.style.background='rgba(255,255,255,0.9)';">
+                        <i class="bi bi-chevron-left" style="font-size: 1.5rem; color: #006F3F;"></i>
+                    </button>
+                    <button class="carousel-nav carousel-next" style="position: absolute; top: 50%; right: 1rem; transform: translateY(-50%); background: rgba(255,255,255,0.9); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 15; display: flex; align-items: center; justify-content: center; transition: all 0.3s; opacity: 0.8;" onmouseover="this.style.opacity='1'; this.style.background='rgba(255,255,255,1)';" onmouseout="this.style.opacity='0.8'; this.style.background='rgba(255,255,255,0.9)';">
+                        <i class="bi bi-chevron-right" style="font-size: 1.5rem; color: #006F3F;"></i>
+                    </button>
+                    
+                    <!-- Carousel Indicators -->
+                    <div style="position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; z-index: 15; pointer-events: auto;">
+                        <span class="carousel-indicator active" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 1; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)';" onmouseout="this.style.transform='scale(1)';"></span>
+                        <span class="carousel-indicator" data-index="1" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.5; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='0.5';"></span>
+                        <span class="carousel-indicator" data-index="2" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.5; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='0.5';"></span>
+                        <span class="carousel-indicator" data-index="3" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.5; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='0.5';"></span>
+                        <span class="carousel-indicator" data-index="4" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.5; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='0.5';"></span>
+                        <span class="carousel-indicator" data-index="5" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.5; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='0.5';"></span>
+                        <span class="carousel-indicator" data-index="6" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.5; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='0.5';"></span>
+                        <span class="carousel-indicator" data-index="7" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.5; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='0.5';"></span>
                     </div>
                 </div>
 
                 <!-- Floating Stats Badge -->
-                <div style="background:linear-gradient(90deg, #11a9b6 0%, #24748D 100%); position:absolute; bottom:-1rem; right:-1rem; color:white; padding:1.5rem; border-radius:1.5rem; box-shadow:0 25px 50px rgba(0,0,0,.2); border:1px solid rgba(255,255,255,0.1);" class="d-none d-md-block">
+                <div style="background:linear-gradient(90deg, #11a9b6 0%, #24748D 100%); position:absolute; bottom:-1rem; right:-1rem; color:white; padding:1.5rem; border-radius:1.5rem; box-shadow:0 25px 50px rgba(0,0,0,.2); border:1px solid rgba(255,255,255,0.1); z-index: 10;" class="d-none d-md-block">
                     <div style="font-size: clamp(2rem, 4vw, 4rem); font-weight: 900;">2021</div>
                     <div style="font-size: clamp(0.875rem, 2vw, 1.125rem); font-weight: 500; opacity: 0.9;">Established<br>Building Skilled Futures</div>
                 </div>
@@ -307,5 +355,129 @@
 
 {{-- Optional: Add Font Awesome in your layout head if not already included --}}
 {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> --}}
+
+<script>
+// Auto-changing image carousel for About Us section
+document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('#aboutImageCarousel .carousel-image');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    const prevButton = document.querySelector('.carousel-prev');
+    const nextButton = document.querySelector('.carousel-next');
+    let currentIndex = 0;
+    let carouselInterval;
+    const intervalTime = 4000; // Change image every 4 seconds
+    
+    if (images.length === 0) return;
+    
+    function showImage(index) {
+        // Hide all images
+        images.forEach((img, i) => {
+            img.style.opacity = '0';
+            img.classList.remove('active');
+        });
+        
+        // Show current image
+        images[index].style.opacity = '1';
+        images[index].classList.add('active');
+        
+        // Update indicators
+        indicators.forEach((indicator, i) => {
+            if (i === index) {
+                indicator.style.opacity = '1';
+                indicator.style.transform = 'scale(1.2)';
+                indicator.classList.add('active');
+            } else {
+                indicator.style.opacity = '0.5';
+                indicator.style.transform = 'scale(1)';
+                indicator.classList.remove('active');
+            }
+        });
+    }
+    
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage(currentIndex);
+    }
+    
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage(currentIndex);
+    }
+    
+    function startCarousel() {
+        carouselInterval = setInterval(nextImage, intervalTime);
+    }
+    
+    function stopCarousel() {
+        clearInterval(carouselInterval);
+    }
+    
+    // Start auto-rotation
+    startCarousel();
+    
+    // Navigation buttons
+    if (nextButton) {
+        nextButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            stopCarousel();
+            nextImage();
+            startCarousel();
+        });
+    }
+    
+    if (prevButton) {
+        prevButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            stopCarousel();
+            prevImage();
+            startCarousel();
+        });
+    }
+    
+    // Pause on hover
+    const carouselContainer = document.getElementById('aboutImageCarousel').parentElement;
+    if (carouselContainer) {
+        carouselContainer.addEventListener('mouseenter', function() {
+            stopCarousel();
+        });
+        
+        carouselContainer.addEventListener('mouseleave', function() {
+            startCarousel();
+        });
+    }
+    
+    // Click on indicators to jump to specific image
+    indicators.forEach((indicator) => {
+        indicator.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const index = parseInt(this.getAttribute('data-index'));
+            currentIndex = index;
+            showImage(currentIndex);
+            // Reset interval
+            stopCarousel();
+            startCarousel();
+        });
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        const carousel = document.getElementById('aboutImageCarousel');
+        if (carousel && carousel.offsetParent !== null) {
+            if (e.key === 'ArrowLeft') {
+                stopCarousel();
+                prevImage();
+                startCarousel();
+            } else if (e.key === 'ArrowRight') {
+                stopCarousel();
+                nextImage();
+                startCarousel();
+            }
+        }
+    });
+    
+    // Initialize
+    showImage(0);
+});
+</script>
 
 @endsection

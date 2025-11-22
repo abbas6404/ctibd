@@ -224,7 +224,7 @@
                         Email Us
                     </h5>
                     <p style="font-family: 'Inter', sans-serif; color: #718096; margin: 0; font-size: clamp(0.875rem, 1.5vw, 1rem); word-break: break-word;">
-                        ikarimptc@gmail.com<br>info@ctibd.net
+                        ikarimptc@gmail.com<br>info@ctibd.org
                     </p>
                 </div>
             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Gallery;
+use App\Models\GalleryCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,7 +15,7 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $galleries = Gallery::latest()->paginate(12);
+        $galleries = Gallery::with('category')->latest()->paginate(12);
         return view('admin.gallery.index', compact('galleries'));
     }
 
@@ -23,7 +24,8 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        return view('admin.gallery.create');
+        $categories = GalleryCategory::orderBy('order')->orderBy('name')->get();
+        return view('admin.gallery.create', compact('categories'));
     }
 
     /**
@@ -34,6 +36,7 @@ class GalleryController extends Controller
         $validated = $request->validate([
             'title' => 'nullable|string|max:255',
             'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category_id' => 'nullable|exists:gallery_categories,id',
         ]);
 
         $validated['img'] = $request->file('img')->store('gallery', 'public');
@@ -56,7 +59,8 @@ class GalleryController extends Controller
      */
     public function edit(Gallery $gallery)
     {
-        return view('admin.gallery.edit', compact('gallery'));
+        $categories = GalleryCategory::orderBy('order')->orderBy('name')->get();
+        return view('admin.gallery.edit', compact('gallery', 'categories'));
     }
 
     /**
@@ -67,13 +71,15 @@ class GalleryController extends Controller
         $validated = $request->validate([
             'title' => 'nullable|string|max:255',
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category_id' => 'nullable|exists:gallery_categories,id',
         ]);
 
-        if ($gallery->img) {
-            Storage::disk('public')->delete($gallery->img);
+        if ($request->hasFile('img')) {
+            if ($gallery->img) {
+                Storage::disk('public')->delete($gallery->img);
+            }
+            $validated['img'] = $request->file('img')->store('gallery', 'public');
         }
-
-        $validated['img'] = $request->file('img')->store('gallery', 'public');
 
         $gallery->update($validated);
 

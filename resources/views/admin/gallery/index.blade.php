@@ -29,6 +29,12 @@
                             @endif
                         </div>
                         <div class="card-body p-3">
+                            @if($gallery->title)
+                                <h6 class="mb-2 fw-semibold">{{ $gallery->title }}</h6>
+                            @endif
+                            @if($gallery->category)
+                                <span class="badge bg-primary mb-2">{{ $gallery->category->name }}</span>
+                            @endif
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="text-muted">
                                     <i class="bi bi-calendar3 me-1"></i>

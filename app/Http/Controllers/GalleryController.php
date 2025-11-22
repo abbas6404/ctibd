@@ -3,14 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallery;
+use App\Models\GalleryCategory;
 use Illuminate\Http\Request;
 
 class GalleryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $galleries = Gallery::latest()->get();
+        // Get all categories with their galleries
+        $categories = GalleryCategory::with(['galleries' => function($query) {
+            $query->latest();
+        }])->orderBy('order')->orderBy('name')->get();
         
-        return view('gallery', compact('galleries'));
+        // Get galleries without category
+        $uncategorizedGalleries = Gallery::whereNull('category_id')->latest()->get();
+        
+        return view('gallery', compact('categories', 'uncategorizedGalleries'));
     }
 }

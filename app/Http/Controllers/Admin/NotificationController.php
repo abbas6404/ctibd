@@ -31,11 +31,26 @@ class NotificationController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'description' => 'nullable|string',
-        ]);
+        $rules = [
+            'type' => 'required|in:top_notification,popup_notification,notification_page',
+        ];
+
+        // Conditional validation based on type
+        if ($request->type === 'top_notification') {
+            $rules['title'] = 'required|string|max:255';
+            $rules['img'] = 'nullable';
+            $rules['description'] = 'nullable';
+        } elseif ($request->type === 'popup_notification') {
+            $rules['img'] = 'required|image|mimes:jpeg,png,jpg,gif|max:2048';
+            $rules['title'] = 'nullable';
+            $rules['description'] = 'nullable';
+        } else { // notification_page
+            $rules['title'] = 'required|string|max:255';
+            $rules['img'] = 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048';
+            $rules['description'] = 'nullable|string';
+        }
+
+        $validated = $request->validate($rules);
 
         if ($request->hasFile('img')) {
             $validated['img'] = $request->file('img')->store('notifications', 'public');
@@ -67,17 +82,40 @@ class NotificationController extends Controller
      */
     public function update(Request $request, Notification $notification)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'description' => 'nullable|string',
-        ]);
+        $rules = [
+            'type' => 'required|in:top_notification,popup_notification,notification_page',
+        ];
+
+        // Conditional validation based on type
+        if ($request->type === 'top_notification') {
+            $rules['title'] = 'required|string|max:255';
+            $rules['img'] = 'nullable';
+            $rules['description'] = 'nullable';
+        } elseif ($request->type === 'popup_notification') {
+            // For popup, require image if no existing image and no new image uploaded
+            if (!$notification->img && !$request->hasFile('img')) {
+                $rules['img'] = 'required|image|mimes:jpeg,png,jpg,gif|max:2048';
+            } else {
+                $rules['img'] = 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048';
+            }
+            $rules['title'] = 'nullable';
+            $rules['description'] = 'nullable';
+        } else { // notification_page
+            $rules['title'] = 'required|string|max:255';
+            $rules['img'] = 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048';
+            $rules['description'] = 'nullable|string';
+        }
+
+        $validated = $request->validate($rules);
 
         if ($request->hasFile('img')) {
             if ($notification->img) {
                 Storage::disk('public')->delete($notification->img);
             }
             $validated['img'] = $request->file('img')->store('notifications', 'public');
+        } elseif ($request->type === 'popup_notification' && !$notification->img) {
+            // If popup type and no image exists, this should have been caught by validation
+            return back()->withErrors(['img' => 'Image is required for popup notifications.']);
         }
 
         $notification->update($validated);

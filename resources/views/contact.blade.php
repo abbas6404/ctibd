@@ -71,7 +71,7 @@
                     </h4>
                     <p style="font-family: 'Inter', sans-serif; color: #718096; margin-bottom: 0; font-size: clamp(0.875rem, 1.5vw, 1rem); word-break: break-word;">
                         ikarimptc@gmail.com<br>
-                        info@ctibd.net
+                        info@ctibd.org
                     </p>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                         Visit Website
                     </h4>
                     <p style="font-family: 'Inter', sans-serif; color: #718096; margin-bottom: 0; font-size: clamp(0.875rem, 1.5vw, 1rem); word-break: break-word;">
-                        <a href="http://www.ctibd.net" target="_blank" style="color: #006F3F; text-decoration: none; font-weight: 600;">www.ctibd.net</a>
+                        <a href="https://www.ctibd.org" target="_blank" rel="noopener noreferrer" style="color: #006F3F; text-decoration: none; font-weight: 600;">www.ctibd.org</a>
                     </p>
                 </div>
             </div>

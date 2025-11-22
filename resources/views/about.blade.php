@@ -166,9 +166,34 @@
                         <strong style="color: #2d3748;">Trade:</strong>
                         <p style="color: #4a5568; margin: 0.5rem 0 0 0;">Welding</p>
                     </div>
-                    <div>
+                    <div style="margin-bottom: 1.5rem;">
                         <strong style="color: #2d3748;">License Number:</strong>
                         <p style="color: #4a5568; margin: 0.5rem 0 0 0;">TRAD/DNCC/048187/2022</p>
+                    </div>
+                    
+                    <!-- Trade License PDF Download -->
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb;">
+                        <a href="{{ asset('docs/trade-license.pdf') }}" 
+                           download 
+                           class="btn d-inline-flex align-items-center justify-content-center gap-2" 
+                           style="
+                               background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); 
+                               color: white; 
+                               border: none; 
+                               padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem); 
+                               border-radius: clamp(0.5rem, 1.5vw, 0.75rem); 
+                               font-weight: 600; 
+                               font-size: clamp(0.875rem, 2vw, 1rem);
+                               text-decoration: none;
+                               transition: all 0.3s ease;
+                               box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+                               width: 100%;
+                           "
+                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(37, 99, 235, 0.4)';"
+                           onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)';">
+                            <i class="bi bi-file-earmark-pdf" style="font-size: 1.25rem;"></i>
+                            <span>Download Trade License PDF</span>
+                        </a>
                     </div>
                 </div>
             </div>

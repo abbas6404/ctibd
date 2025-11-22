@@ -17,6 +17,7 @@
                 <table class="table table-hover mb-0">
                     <thead class="table-light">
                         <tr>
+                            <th class="border-0">Type</th>
                             <th class="border-0">Image</th>
                             <th class="border-0">Title</th>
                             <th class="border-0">Description</th>
@@ -27,6 +28,19 @@
                     <tbody>
                         @forelse($notifications as $notification)
                             <tr>
+                                <td>
+                                    @php
+                                        $typeColors = [
+                                            'top_notification' => ['bg' => 'bg-primary', 'text' => 'text-white'],
+                                            'popup_notification' => ['bg' => 'bg-info', 'text' => 'text-white'],
+                                            'notification_page' => ['bg' => 'bg-success', 'text' => 'text-white'],
+                                        ];
+                                        $color = $typeColors[$notification->type] ?? ['bg' => 'bg-secondary', 'text' => 'text-white'];
+                                    @endphp
+                                    <span class="badge {{ $color['bg'] }} {{ $color['text'] }}" style="font-size: 0.75rem;">
+                                        {{ $notification->type_name }}
+                                    </span>
+                                </td>
                                 <td>
                                     @if($notification->img)
                                         <img src="{{ asset('storage/' . $notification->img) }}" 
@@ -41,7 +55,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <div class="fw-semibold">{{ $notification->title }}</div>
+                                    <div class="fw-semibold">{{ $notification->title ?? 'N/A' }}</div>
                                 </td>
                                 <td>
                                     <div class="text-muted small">
@@ -78,7 +92,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center py-5">
+                                <td colspan="6" class="text-center py-5">
                                     <div class="text-muted">
                                         <i class="bi bi-bell fs-1 d-block mb-3"></i>
                                         <p class="mb-0">No notifications found.</p>

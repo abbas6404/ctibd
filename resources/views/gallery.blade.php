@@ -16,33 +16,161 @@
 <!-- Gallery Section -->
 <section class="py-4">
     <div class="container px-3 px-md-4">
-        @if($galleries->count() > 0)
-            <div class="row g-2 g-md-4">
-                @foreach($galleries as $gallery)
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="gallery-item position-relative overflow-hidden rounded-3 shadow-sm" style="border-radius: 1rem; height: 280px; cursor: pointer;" 
-                             onclick="openImageModal('{{ $gallery->img ? asset('storage/' . $gallery->img) : asset('img/logo.png') }}', '{{ $gallery->title ?? 'Gallery Image' }}')">
-                            @if($gallery->img)
-                                <img src="{{ asset('storage/' . $gallery->img) }}" 
-                                     alt="{{ $gallery->title ?? 'Gallery Image' }}" 
-                                     class="img-fluid w-100 h-100" 
-                                     style="object-fit: cover; transition: transform 0.4s ease;">
-                            @else
-                                <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                                    <i class="bi bi-image" style="font-size: 3rem; color: rgba(255,255,255,0.5);"></i>
+        @php
+            $hasAnyImages = false;
+            if ($categories->count() > 0) {
+                foreach ($categories as $category) {
+                    if ($category->galleries->count() > 0) {
+                        $hasAnyImages = true;
+                        break;
+                    }
+                }
+            }
+            if ($uncategorizedGalleries->count() > 0) {
+                $hasAnyImages = true;
+            }
+        @endphp
+        
+        @if($hasAnyImages)
+            <!-- Categories with their galleries -->
+            @foreach($categories as $category)
+                @if($category->galleries->count() > 0)
+                    <div class="mb-5">
+                        <!-- Category Title -->
+                        <div class="mb-4" style="position: relative; margin: clamp(2rem, 5vw, 3rem) 0; text-align: center;">
+                            <!-- Horizontal Line -->
+                            <div style="
+                                position: absolute;
+                                top: 50%;
+                                left: 0;
+                                right: 0;
+                                height: 1px;
+                                background: #e2e8f0;
+                                z-index: 1;
+                            "></div>
+                            
+                            <!-- Category Name Box -->
+                            <div style="
+                                position: relative;
+                                display: inline-block;
+                                background: white;
+                                border: 1px solid #e2e8f0;
+                                padding: clamp(0.75rem, 2vw, 1rem) clamp(2rem, 5vw, 3rem);
+                                z-index: 2;
+                            ">
+                                <h2 style="
+                                    font-family: 'Montserrat', sans-serif; 
+                                    font-size: clamp(1.25rem, 3.5vw, 1.75rem); 
+                                    font-weight: 600; 
+                                    color: #006F3F; 
+                                    margin: 0;
+                                    letter-spacing: 1px;
+                                    text-transform: uppercase;
+                                ">
+                                    {{ $category->name }}
+                                </h2>
+                            </div>
+                        </div>
+                        
+                        <!-- Category Gallery Images -->
+                        <div class="row g-2 g-md-4">
+                            @foreach($category->galleries as $gallery)
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <div class="gallery-item position-relative overflow-hidden rounded-3 shadow-sm" style="border-radius: 1rem; height: 280px; cursor: pointer;" 
+                                         onclick="openImageModal('{{ $gallery->img ? asset('storage/' . $gallery->img) : asset('img/logo.png') }}', '{{ $gallery->title ?? 'Gallery Image' }}')">
+                                        @if($gallery->img)
+                                            <img src="{{ asset('storage/' . $gallery->img) }}" 
+                                                 alt="{{ $gallery->title ?? 'Gallery Image' }}" 
+                                                 class="gallery-image img-fluid w-100 h-100" 
+                                                 style="object-fit: cover; display: block;">
+                                        @else
+                                            <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                                <i class="bi bi-image" style="font-size: 3rem; color: rgba(255,255,255,0.5);"></i>
+                                            </div>
+                                        @endif
+                                        <div class="gallery-overlay position-absolute top-0 start-0 end-0 bottom-0 d-flex align-items-center justify-content-center">
+                                            <div class="text-center">
+                                                <div class="gallery-title-box text-white px-4 py-2 rounded-pill">
+                                                    <h6 class="mb-0 fw-bold">{{ $gallery->title ?? 'Gallery Image' }}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            @endif
-                            <div class="gallery-overlay position-absolute top-0 start-0 end-0 bottom-0 d-flex align-items-center justify-content-center">
-                                <div class="text-center">
-                                    <div class="gallery-title-box bg-dark text-white px-4 py-2 rounded-pill shadow-lg">
-                                        <h6 class="mb-0 fw-bold">{{ $gallery->title ?? 'Gallery Image' }}</h6>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+            
+            <!-- Un categorized Galleries -->
+            @if($uncategorizedGalleries->count() > 0)
+                <div class="mb-5">
+                    <!-- Category Title -->
+                    <div class="mb-4" style="position: relative; margin: clamp(2rem, 5vw, 3rem) 0; text-align: center;">
+                        <!-- Horizontal Line -->
+                        <div style="
+                            position: absolute;
+                            top: 50%;
+                            left: 0;
+                            right: 0;
+                            height: 1px;
+                            background: #e2e8f0;
+                            z-index: 1;
+                        "></div>
+                        
+                        <!-- Category Name Box -->
+                        <div style="
+                            position: relative;
+                            display: inline-block;
+                            background: white;
+                            border: 1px solid #e2e8f0;
+                            padding: clamp(0.75rem, 2vw, 1rem) clamp(2rem, 5vw, 3rem);
+                            z-index: 2;
+                        ">
+                            <h2 style="
+                                font-family: 'Montserrat', sans-serif; 
+                                font-size: clamp(1.25rem, 3.5vw, 1.75rem); 
+                                font-weight: 600; 
+                                color: #006F3F; 
+                                margin: 0;
+                                letter-spacing: 1px;
+                                text-transform: uppercase;
+                            ">
+                                Other Images
+                            </h2>
+                        </div>
+                    </div>
+                    
+                    <!-- Un categorized Gallery Images -->
+                    <div class="row g-2 g-md-4">
+                        @foreach($uncategorizedGalleries as $gallery)
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <div class="gallery-item position-relative overflow-hidden rounded-3 shadow-sm" style="border-radius: 1rem; height: 280px; cursor: pointer;" 
+                                     onclick="openImageModal('{{ $gallery->img ? asset('storage/' . $gallery->img) : asset('img/logo.png') }}', '{{ $gallery->title ?? 'Gallery Image' }}')">
+                                    @if($gallery->img)
+                                        <img src="{{ asset('storage/' . $gallery->img) }}" 
+                                             alt="{{ $gallery->title ?? 'Gallery Image' }}" 
+                                             class="gallery-image img-fluid w-100 h-100" 
+                                             style="object-fit: cover; display: block;">
+                                    @else
+                                        <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                            <i class="bi bi-image" style="font-size: 3rem; color: rgba(255,255,255,0.5);"></i>
+                                        </div>
+                                    @endif
+                                    <div class="gallery-overlay position-absolute top-0 start-0 end-0 bottom-0 d-flex align-items-center justify-content-center">
+                                        <div class="text-center">
+                                            <div class="gallery-title-box text-white px-4 py-2 rounded-pill">
+                                                <h6 class="mb-0 fw-bold">{{ $gallery->title ?? 'Gallery Image' }}</h6>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endif
         @else
             <div class="text-center py-5">
                 <i class="bi bi-images" style="font-size: 4rem; color: #cbd5e0; margin-bottom: 1rem;"></i>
@@ -102,57 +230,106 @@ document.getElementById('imageModal').addEventListener('click', function(event) 
 </script>
 @endsection
 
-@section('styles')
+@push('styles')
 <style>
 .gallery-item {
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
     overflow: hidden;
+    position: relative;
+    will-change: transform;
+}
+
+.gallery-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(195, 236, 251, 0.9);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    border-radius: 1rem;
+    pointer-events: none;
 }
 
 .gallery-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3) !important;
+    transform: scale(1.03);
+    box-shadow: 0 20px 40px rgba(195, 236, 251, 0.5) !important;
 }
 
-.gallery-item img {
-    filter: brightness(0.9);
-    transition: filter 0.4s ease, transform 0.4s ease;
+.gallery-item:hover::before {
+    opacity: 1;
 }
 
-.gallery-item:hover img {
-    filter: brightness(0.6);
+.gallery-image {
+    filter: brightness(1);
+    transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 0;
+}
+
+.gallery-item:hover .gallery-image {
+    filter: brightness(0.4);
     transform: scale(1.1);
 }
 
 .gallery-overlay {
-    background: rgba(0,0,0,0.3);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    backdrop-filter: blur(2px);
+    background: transparent;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    backdrop-filter: blur(0px);
+    z-index: 3;
+    transform: scale(0.9);
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important, 
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important, 
+                visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .gallery-item:hover .gallery-overlay {
-    opacity: 1;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: scale(1) !important;
+    pointer-events: auto;
 }
 
 .gallery-title-box {
-    transform: translateY(20px);
-    transition: transform 0.4s ease;
-    border: 2px solid rgba(255,255,255,0.3);
+    transform: translateY(20px) scale(0.9);
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(255,255,255,0.8);
     backdrop-filter: blur(10px);
-    background: rgba(0,0,0,0.7) !important;
+    background: rgba(0, 111, 63, 0.9) !important;
+    box-shadow: 0 8px 25px rgba(195, 236, 251, 0.6);
+    pointer-events: none;
+    position: relative;
+    z-index: 4;
 }
 
 .gallery-item:hover .gallery-title-box {
-    transform: translateY(0);
+    transform: translateY(0) scale(1) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto;
 }
 
 .gallery-title-box h6 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     letter-spacing: 0.5px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    margin: 0;
 }
 
 /* Responsive adjustments */
@@ -220,4 +397,4 @@ document.getElementById('imageModal').addEventListener('click', function(event) 
     margin-bottom: 0;
 }
 </style>
-@endsection
+@endpush

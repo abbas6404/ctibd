@@ -15,8 +15,22 @@ class Notification extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'type',
         'title',
         'img',
         'description',
     ];
+
+    /**
+     * Get the user-friendly type name.
+     */
+    public function getTypeNameAttribute(): string
+    {
+        return match($this->type) {
+            'top_notification' => 'Top Notification',
+            'popup_notification' => 'Popup Notification',
+            'notification_page' => 'Notification Page',
+            default => 'Notification Page',
+        };
+    }
 }

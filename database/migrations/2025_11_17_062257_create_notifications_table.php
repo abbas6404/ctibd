@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->enum('type', ['top_notification', 'popup_notification', 'notification_page'])->default('notification_page');
+            $table->string('title')->nullable();
             $table->string('img')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
