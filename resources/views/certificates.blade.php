@@ -7,13 +7,17 @@
         .certificate-section {
             margin-top: 2rem !important;
             margin-bottom: 2rem !important;
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
         }
         .certificate-card {
             padding: 1.5rem !important;
             border-radius: 1rem !important;
+            margin: 0 0.5rem;
         }
         .certificate-title {
             font-size: 1.5rem !important;
+            line-height: 1.3 !important;
         }
         .certificate-icon {
             width: 60px !important;
@@ -24,19 +28,31 @@
         }
         .certificate-input {
             font-size: 1rem !important;
-            padding: 0.75rem 1rem !important;
+            padding: 0.875rem 1rem !important;
+            border-radius: 0.75rem !important;
         }
         .certificate-btn {
             font-size: 1rem !important;
-            padding: 0.75rem 1.5rem !important;
-            width: 100%;
+            padding: 0.875rem 1.5rem !important;
+            width: 100% !important;
+            min-height: 48px !important;
+            display: block !important;
         }
         .certificate-preview-container {
             min-height: 400px !important;
             padding: 0.5rem !important;
         }
+        .certificate-preview-container > div {
+            min-height: 400px !important;
+        }
         .certificate-preview-container iframe {
             height: 400px !important;
+            max-width: 100% !important;
+        }
+        .certificate-preview-container img {
+            max-width: 100% !important;
+            height: auto !important;
+            display: block !important;
         }
         .certificate-info-card {
             padding: 1rem !important;
@@ -46,24 +62,90 @@
         }
         .certificate-info-card .col-md-6 {
             margin-bottom: 1rem;
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+        }
+        .certificate-info-card p {
+            font-size: 0.95rem !important;
+            word-break: break-word;
+        }
+        .form-label {
+            font-size: 1rem !important;
+            margin-bottom: 0.5rem !important;
         }
     }
     @media (max-width: 576px) {
         .certificate-section {
             margin-top: 1rem !important;
             margin-bottom: 1rem !important;
+            padding-top: 0.5rem !important;
+            padding-bottom: 0.5rem !important;
         }
         .certificate-card {
             padding: 1rem !important;
+            margin: 0 0.25rem;
+            border-radius: 0.75rem !important;
         }
         .certificate-title {
+            font-size: 1.25rem !important;
+            line-height: 1.3 !important;
+        }
+        .certificate-icon {
+            width: 50px !important;
+            height: 50px !important;
+            margin-bottom: 1rem !important;
+        }
+        .certificate-icon i {
             font-size: 1.25rem !important;
         }
         .certificate-preview-container {
             min-height: 300px !important;
+            padding: 0.25rem !important;
+        }
+        .certificate-preview-container > div {
+            min-height: 300px !important;
         }
         .certificate-preview-container iframe {
             height: 300px !important;
+        }
+        .certificate-btn {
+            font-size: 0.95rem !important;
+            padding: 0.75rem 1.25rem !important;
+        }
+        .certificate-info-card {
+            padding: 0.75rem !important;
+        }
+        .certificate-info-card .col-md-6 {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+        .form-label {
+            font-size: 0.95rem !important;
+        }
+        .certificate-input {
+            font-size: 0.95rem !important;
+            padding: 0.75rem 0.875rem !important;
+        }
+    }
+    
+    /* Ensure proper touch targets on all mobile devices */
+    @media (hover: none) and (pointer: coarse) {
+        .certificate-btn,
+        button.certificate-btn,
+        a.certificate-btn {
+            min-height: 48px !important;
+            min-width: 48px !important;
+        }
+    }
+    
+    /* Prevent horizontal scroll on mobile */
+    @media (max-width: 768px) {
+        body {
+            overflow-x: hidden;
+        }
+        .container {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
         }
     }
 </style>
@@ -129,7 +211,7 @@
                         <a 
                             href="{{ $certificateUrl }}"
                             download="CTIBD-Certificate-{{ $certificate->registration_id }}.pdf"
-                            class="btn btn-lg px-5 py-3 certificate-btn" 
+                            class="btn btn-lg px-5 py-3 certificate-btn w-100" 
                             style="background: #006F3F; color: white; border-radius: 1rem; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.1rem; text-decoration: none; display: inline-block;"
                         >
                             <i class="fas fa-file-pdf me-2"></i>
@@ -169,7 +251,7 @@
                         <div class="text-center">
                             <button 
                                 type="submit" 
-                                class="btn btn-lg px-5 py-3 certificate-btn" 
+                                class="btn btn-lg px-5 py-3 certificate-btn w-100" 
                                 style="background: linear-gradient(135deg, #dc2626 0%, #be123c 100%); color: white; border-radius: 1rem; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.1rem; box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);"
                             >
                                 <i class="fas fa-download me-2"></i>
@@ -200,7 +282,7 @@
                     </p>
                     <a 
                         href="{{ route('certificates') }}"
-                        class="btn btn-lg px-5 py-3 certificate-btn" 
+                        class="btn btn-lg px-5 py-3 certificate-btn w-100" 
                         style="background: #2563eb; color: white; border-radius: 1rem; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.1rem; text-decoration: none; display: inline-block;"
                     >
                         <i class="fas fa-redo me-2"></i>

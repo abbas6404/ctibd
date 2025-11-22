@@ -199,40 +199,40 @@
 /* CTA Button - with animations */
 .cta-btn { 
     position:relative; 
-    padding:.5rem 1.5rem; 
+    padding:.4rem 1rem; 
     border-radius:9999px; 
-    background:linear-gradient(90deg, #dc2626, #be123c); 
+    background:linear-gradient(90deg, #006F3F, #059669); 
     background-size:200% 100%; 
     color:#fff; 
-    font-weight:800; 
-    font-size:1rem; 
-    box-shadow:0 12px 30px rgba(220,38,38,.35); 
+    font-weight:600; 
+    font-size:0.875rem; 
+    box-shadow:0 4px 15px rgba(0,111,63,.25); 
     transition:all .25s; 
     white-space:nowrap;
     animation:waterFlow 8s linear infinite;
     overflow:hidden;
 }
 @media (min-width: 768px) {
-    .cta-btn { padding:.6rem 2.75rem; font-size:1.25rem; }
+    .cta-btn { padding:.45rem 1.25rem; font-size:0.9rem; }
 }
 .cta-btn:hover { 
-    transform:translateY(-2px); 
-    box-shadow:0 20px 40px rgba(220,38,38,.45); 
+    transform:translateY(-1px); 
+    box-shadow:0 8px 20px rgba(0,111,63,.35); 
     background-position:100% 50%;
 }
 .cta-btn::before {
     content:"";
     position:absolute;
-    inset:-10px;
+    inset:-8px;
     border-radius:9999px;
-    background:radial-gradient(closest-side, rgba(245,158,11,.35), transparent);
-    filter:blur(10px);
-    opacity:.7;
+    background:radial-gradient(closest-side, rgba(5,150,105,.25), transparent);
+    filter:blur(8px);
+    opacity:.6;
     transition:opacity .25s;
     z-index:-1;
 }
 .cta-btn:hover::before {
-    opacity:1;
+    opacity:0.8;
 }
 .cta-btn::after {
     content:"";
@@ -242,7 +242,7 @@
     width:40%;
     height:100%;
     border-radius:9999px;
-    background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.25), rgba(255,255,255,0));
+    background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.2), rgba(255,255,255,0));
     transform:skewX(-20deg);
     animation:ctaShine 3s ease-in-out infinite;
 }
@@ -250,20 +250,22 @@
     display:inline-flex; 
     align-items-center; 
     justify-content:center; 
-    width:42px; 
-    height:42px; 
+    width:28px; 
+    height:28px; 
     border-radius:50%; 
-    background:linear-gradient(135deg, #f59e0b, #fbbf24); 
-    color:#111827; 
-    margin-left:1rem; 
-    box-shadow:0 8px 18px rgba(245,158,11,.35); 
+    background:rgba(255,255,255,0.2); 
+    color:#fff; 
+    margin-left:0.5rem; 
+    box-shadow:0 4px 10px rgba(0,0,0,.15); 
     transition:transform .25s;
     animation:iconWave 3s ease-in-out infinite;
     position:relative;
     z-index:1;
+    font-size:0.75rem;
 }
 .cta-btn:hover .cta-icon {
-    transform:translateX(6px) rotate(8deg);
+    transform:translateX(3px) rotate(5deg);
+    background:rgba(255,255,255,0.3);
 }
 @keyframes waterFlow {
     0% { background-position: 0% 50%; }
@@ -277,17 +279,18 @@
 }
 @keyframes iconWave {
     0%, 100% { transform: translateX(0) rotate(0); }
-    50% { transform: translateX(6px) rotate(6deg); }
+    50% { transform: translateX(3px) rotate(4deg); }
 }
 @media (max-width: 767px) {
     .cta-btn { 
-        padding:.5rem 1rem; 
-        font-size:.875rem; 
+        padding:.35rem 0.85rem; 
+        font-size:.8rem; 
     }
     .cta-icon {
-        width:36px;
-        height:36px;
-        margin-left:.75rem;
+        width:24px;
+        height:24px;
+        margin-left:.5rem;
+        font-size:0.7rem;
     }
 }
 
