@@ -20,6 +20,7 @@ class AdminAuthController extends Controller
         return view('admin.login');
     }
 
+    
     /**
      * Handle admin login.
      */
