@@ -249,7 +249,7 @@
                                 <div class="list-group-item px-0 border-0 border-bottom">
                                     <div class="d-flex align-items-center">
                                         @if($gallery->img)
-                                            <img src="{{ asset('storage/' . $gallery->img) }}" alt="Gallery" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                            <img src="{{ asset($gallery->img) }}" alt="Gallery" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
                                         @else
                                             <div class="bg-light rounded me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
                                                 <i class="bi bi-image text-muted"></i>

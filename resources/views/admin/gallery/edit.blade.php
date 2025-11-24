@@ -46,7 +46,7 @@
                         @if($gallery->img)
                             <div class="mb-3">
                                 <p class="text-muted small mb-2">Current Image:</p>
-                                <img src="{{ asset('storage/' . $gallery->img) }}" 
+                                <img src="{{ asset($gallery->img) }}" 
                                      alt="Gallery" 
                                      class="rounded border" 
                                      style="max-width: 100%; max-height: 400px; object-fit: contain;">

@@ -53,34 +53,78 @@ class SettingsController extends Controller
         return [
             // General Settings
             'site_name' => [
-                'value' => 'Training Institute',
+                'value' => 'Confidence Training Institute',
                 'type' => 'text',
                 'group' => 'general',
                 'description' => 'Name of the training institute',
             ],
             'site_email' => [
-                'value' => 'info@traininginstitute.com',
+                'value' => 'ikarimptc@gmail.com',
                 'type' => 'email',
                 'group' => 'general',
-                'description' => 'Contact email address',
+                'description' => 'Primary contact email address',
             ],
             'site_phone' => [
-                'value' => '+1234567890',
+                'value' => '+88 01716 986 585',
                 'type' => 'text',
                 'group' => 'general',
-                'description' => 'Contact phone number',
+                'description' => 'Primary contact phone number',
             ],
             'site_address' => [
-                'value' => '',
+                'value' => 'House # 114, Kuripara, Uttarkhan, Dhaka-1230, Bangladesh',
                 'type' => 'textarea',
                 'group' => 'general',
                 'description' => 'Physical address',
             ],
             'site_description' => [
-                'value' => '',
+                'value' => 'Confidence Training Institute (CTI) is a BTEB approved technical training center established in 2021, licensed by Dhaka North City Corporation. We offer practical hands-on training in 8 high-demand trades: welding, electrical, steel fitting, pipe fitting, scaffolding, mechanical fitting, machinist, and blaster painter. Our mission is to empower individuals through transformative training, building skilled futures with industry-relevant knowledge and confidence-building programs.',
                 'type' => 'textarea',
                 'group' => 'general',
                 'description' => 'Site description',
+            ],
+            
+            // SEO Settings
+            'seo_meta_title' => [
+                'value' => 'Confidence Training Institute (CTI) - BTEB Approved Vocational Training Center in Dhaka | Welding, Pipe Fitter, Steel Fitter Courses',
+                'type' => 'text',
+                'group' => 'seo',
+                'description' => 'Default meta title for SEO (appears in search results) - Recommended: 50-60 characters',
+            ],
+            'seo_meta_description' => [
+                'value' => 'Confidence Training Institute (CTI) - BTEB approved technical training center in Dhaka, Bangladesh. Offering practical hands-on training in welding, electrical, steel fitting, pipe fitting, scaffolding, mechanical fitting, machinist, and blaster painter. Licensed by Dhaka North City Corporation. Established 2021. Contact: +88 01716 986 585',
+                'type' => 'textarea',
+                'group' => 'seo',
+                'description' => 'Default meta description for SEO (appears in search results) - Recommended: 150-160 characters',
+            ],
+            'seo_meta_keywords' => [
+                'value' => 'Confidence Training Institute, CTI, BTEB approved training center, vocational training Dhaka, welding training Bangladesh, pipe fitter course, steel fitter training, scaffolding training, mechanical fitter course, machinist training, blaster painter course, technical training center, practical training institute, Dhaka North City Corporation licensed, Uttarkhan training center, Kuripara training institute, Iqbal Karim, TRAD/DNCC/048187/2022, 2021 established training center',
+                'type' => 'text',
+                'group' => 'seo',
+                'description' => 'Meta keywords (comma-separated) - Include relevant search terms',
+            ],
+            'seo_og_image' => [
+                'value' => '',
+                'type' => 'text',
+                'group' => 'seo',
+                'description' => 'Open Graph image URL (for social media sharing)',
+            ],
+            'seo_google_analytics' => [
+                'value' => '',
+                'type' => 'text',
+                'group' => 'seo',
+                'description' => 'Google Analytics tracking ID (e.g., G-XXXXXXXXXX)',
+            ],
+            'seo_google_site_verification' => [
+                'value' => '',
+                'type' => 'text',
+                'group' => 'seo',
+                'description' => 'Google Search Console verification code',
+            ],
+            'seo_facebook_pixel' => [
+                'value' => '',
+                'type' => 'text',
+                'group' => 'seo',
+                'description' => 'Facebook Pixel ID',
             ],
             
             // Social Media Settings

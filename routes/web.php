@@ -62,6 +62,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Gallery Management
         Route::resource('gallery', App\Http\Controllers\Admin\GalleryController::class);
         
+        // Home Sliders Management
+        Route::resource('home-sliders', App\Http\Controllers\Admin\HomeSliderController::class);
+        
         // Certificates Management
         Route::resource('certificates', App\Http\Controllers\Admin\CertificateController::class);
     });

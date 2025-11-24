@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             NotificationSeeder::class,
             GalleryCategorySeeder::class,
             GallerySeeder::class,
+            HomeSliderSeeder::class,
             CertificateSeeder::class,
         ]);
     }

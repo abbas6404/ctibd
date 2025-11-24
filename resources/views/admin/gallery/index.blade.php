@@ -18,7 +18,7 @@
                     <div class="card border-0 shadow-sm h-100">
                         <div class="position-relative" style="height: 200px; overflow: hidden;">
                             @if($gallery->img)
-                                <img src="{{ asset('storage/' . $gallery->img) }}" 
+                                <img src="{{ asset($gallery->img) }}" 
                                      alt="Gallery" 
                                      class="w-100 h-100" 
                                      style="object-fit: cover;">

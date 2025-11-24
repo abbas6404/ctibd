@@ -1,2 +1,9 @@
 User-agent: *
-Disallow:
+Allow: /
+
+# Disallow admin area
+Disallow: /admin/
+Disallow: /admin/*
+
+# Sitemap (update with your actual domain)
+# Sitemap: https://yourdomain.com/sitemap.xml

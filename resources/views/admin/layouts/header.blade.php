@@ -28,6 +28,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('admin.home-sliders.*') ? 'active fw-bold' : '' }}" href="{{ route('admin.home-sliders.index') }}">
+                    <i class="bi bi-sliders me-1"></i> Home Sliders
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('admin.certificates.*') ? 'active fw-bold' : '' }}" href="{{ route('admin.certificates.index') }}">
                     <i class="bi bi-award me-1"></i> Certificates
                 </a>

@@ -77,9 +77,9 @@
                             @foreach($category->galleries as $gallery)
                                 <div class="col-lg-3 col-md-4 col-sm-6">
                                     <div class="gallery-item position-relative overflow-hidden rounded-3 shadow-sm" style="border-radius: 1rem; height: 280px; cursor: pointer;" 
-                                         onclick="openImageModal('{{ $gallery->img ? asset('storage/' . $gallery->img) : asset('img/logo.png') }}', '{{ $gallery->title ?? 'Gallery Image' }}')">
+                                         onclick="openImageModal('{{ $gallery->img ? asset($gallery->img) : asset('img/logo.png') }}', '{{ $gallery->title ?? 'Gallery Image' }}')">
                                         @if($gallery->img)
-                                            <img src="{{ asset('storage/' . $gallery->img) }}" 
+                                            <img src="{{ asset($gallery->img) }}" 
                                                  alt="{{ $gallery->title ?? 'Gallery Image' }}" 
                                                  class="gallery-image img-fluid w-100 h-100" 
                                                  style="object-fit: cover; display: block;">
@@ -147,9 +147,9 @@
                         @foreach($uncategorizedGalleries as $gallery)
                             <div class="col-lg-3 col-md-4 col-sm-6">
                                 <div class="gallery-item position-relative overflow-hidden rounded-3 shadow-sm" style="border-radius: 1rem; height: 280px; cursor: pointer;" 
-                                     onclick="openImageModal('{{ $gallery->img ? asset('storage/' . $gallery->img) : asset('img/logo.png') }}', '{{ $gallery->title ?? 'Gallery Image' }}')">
+                                     onclick="openImageModal('{{ $gallery->img ? asset($gallery->img) : asset('img/logo.png') }}', '{{ $gallery->title ?? 'Gallery Image' }}')">
                                     @if($gallery->img)
-                                        <img src="{{ asset('storage/' . $gallery->img) }}" 
+                                        <img src="{{ asset($gallery->img) }}" 
                                              alt="{{ $gallery->title ?? 'Gallery Image' }}" 
                                              class="gallery-image img-fluid w-100 h-100" 
                                              style="object-fit: cover; display: block;">

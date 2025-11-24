@@ -3,21 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Gallery;
-use App\Models\GalleryCategory;
+use App\Models\HomeSlider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
 
-class GalleryController extends Controller
+class HomeSliderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $galleries = Gallery::with('category')->latest()->paginate(12);
-        return view('admin.gallery.index', compact('galleries'));
+        $sliders = HomeSlider::orderBy('order')->orderBy('created_at', 'desc')->get();
+        return view('admin.home-sliders.index', compact('sliders'));
     }
 
     /**
@@ -25,8 +24,7 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        $categories = GalleryCategory::orderBy('order')->orderBy('name')->get();
-        return view('admin.gallery.create', compact('categories'));
+        return view('admin.home-sliders.create');
     }
 
     /**
@@ -38,7 +36,8 @@ class GalleryController extends Controller
             $validated = $request->validate([
                 'title' => 'nullable|string|max:255',
                 'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'category_id' => 'nullable|exists:gallery_categories,id',
+                'order' => 'nullable|integer|min:0',
+                'is_active' => 'nullable|boolean',
             ]);
 
             $file = $request->file('img');
@@ -57,78 +56,73 @@ class GalleryController extends Controller
                 ];
                 
                 $errorMessage = $errorMessages[$errorCode] ?? 'Upload failed: Unknown error (Code: ' . $errorCode . ').';
-                Log::error('Gallery image upload error: ' . $errorMessage);
+                Log::error('Home slider image upload error: ' . $errorMessage);
                 
                 return back()->withErrors(['img' => $errorMessage])->withInput();
             }
 
-            // Ensure the gallery directory exists
-            $galleryPath = public_path('img/gallery');
-            if (!file_exists($galleryPath)) {
-                if (!File::makeDirectory($galleryPath, 0755, true)) {
-                    Log::error('Failed to create gallery directory: ' . $galleryPath);
-                    return back()->withErrors(['img' => 'Failed to create gallery directory. Please check server permissions.'])->withInput();
+            // Ensure the slider directory exists
+            $sliderPath = public_path('img/sliders');
+            if (!file_exists($sliderPath)) {
+                if (!File::makeDirectory($sliderPath, 0755, true)) {
+                    Log::error('Failed to create slider directory: ' . $sliderPath);
+                    return back()->withErrors(['img' => 'Failed to create slider directory. Please check server permissions.'])->withInput();
                 }
             }
 
             // Store the image
             try {
                 $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                $file->move($galleryPath, $fileName);
-                $validated['img'] = 'img/gallery/' . $fileName;
+                $file->move($sliderPath, $fileName);
+                $validated['img'] = 'img/sliders/' . $fileName;
                 
                 // Verify the file was actually stored
-                if (!file_exists($galleryPath . '/' . $fileName)) {
-                    Log::error('Gallery image storage failed: File was not stored properly');
+                if (!file_exists($sliderPath . '/' . $fileName)) {
+                    Log::error('Home slider image storage failed: File was not stored properly');
                     return back()->withErrors(['img' => 'Failed to store image. Please check server permissions and try again.'])->withInput();
                 }
             } catch (\Exception $e) {
-                Log::error('Gallery image storage exception: ' . $e->getMessage());
+                Log::error('Home slider image storage exception: ' . $e->getMessage());
                 return back()->withErrors(['img' => 'Failed to store image: ' . $e->getMessage()])->withInput();
             }
 
-            Gallery::create($validated);
+            $validated['is_active'] = $request->has('is_active') ? true : false;
+            $validated['order'] = $validated['order'] ?? 0;
 
-            return redirect()->route('admin.gallery.index')->with('success', 'Gallery image uploaded successfully.');
+            HomeSlider::create($validated);
+
+            return redirect()->route('admin.home-sliders.index')->with('success', 'Slider image uploaded successfully.');
             
         } catch (\Illuminate\Validation\ValidationException $e) {
             throw $e;
         } catch (\Exception $e) {
-            Log::error('Gallery store error: ' . $e->getMessage(), [
+            Log::error('Home slider store error: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString()
             ]);
             
-            return back()->withErrors(['error' => 'An error occurred while uploading the gallery image. Please try again.'])->withInput();
+            return back()->withErrors(['error' => 'An error occurred while uploading the slider image. Please try again.'])->withInput();
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Gallery $gallery)
-    {
-        return view('admin.gallery.show', compact('gallery'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Gallery $gallery)
+    public function edit(HomeSlider $homeSlider)
     {
-        $categories = GalleryCategory::orderBy('order')->orderBy('name')->get();
-        return view('admin.gallery.edit', compact('gallery', 'categories'));
+        return view('admin.home-sliders.edit', compact('homeSlider'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Gallery $gallery)
+    public function update(Request $request, HomeSlider $homeSlider)
     {
         try {
             $validated = $request->validate([
                 'title' => 'nullable|string|max:255',
                 'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'category_id' => 'nullable|exists:gallery_categories,id',
+                'order' => 'nullable|integer|min:0',
+                'is_active' => 'nullable|boolean',
             ]);
 
             if ($request->hasFile('img')) {
@@ -148,29 +142,29 @@ class GalleryController extends Controller
                     ];
                     
                     $errorMessage = $errorMessages[$errorCode] ?? 'Upload failed: Unknown error (Code: ' . $errorCode . ').';
-                    Log::error('Gallery image upload error: ' . $errorMessage);
+                    Log::error('Home slider image upload error: ' . $errorMessage);
                     
                     return back()->withErrors(['img' => $errorMessage])->withInput();
                 }
 
-                // Ensure the gallery directory exists
-                $galleryPath = public_path('img/gallery');
-                if (!file_exists($galleryPath)) {
-                    if (!File::makeDirectory($galleryPath, 0755, true)) {
-                        Log::error('Failed to create gallery directory: ' . $galleryPath);
-                        return back()->withErrors(['img' => 'Failed to create gallery directory. Please check server permissions.'])->withInput();
+                // Ensure the slider directory exists
+                $sliderPath = public_path('img/sliders');
+                if (!file_exists($sliderPath)) {
+                    if (!File::makeDirectory($sliderPath, 0755, true)) {
+                        Log::error('Failed to create slider directory: ' . $sliderPath);
+                        return back()->withErrors(['img' => 'Failed to create slider directory. Please check server permissions.'])->withInput();
                     }
                 }
 
                 // Delete old image if exists
-                if ($gallery->img) {
+                if ($homeSlider->img) {
                     try {
-                        $oldImagePath = public_path($gallery->img);
+                        $oldImagePath = public_path($homeSlider->img);
                         if (file_exists($oldImagePath)) {
                             File::delete($oldImagePath);
                         }
                     } catch (\Exception $e) {
-                        Log::warning('Failed to delete old gallery image: ' . $gallery->img . ' - ' . $e->getMessage());
+                        Log::warning('Failed to delete old slider image: ' . $homeSlider->img . ' - ' . $e->getMessage());
                         // Continue even if deletion fails
                     }
                 }
@@ -178,50 +172,56 @@ class GalleryController extends Controller
                 // Store the new image
                 try {
                     $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                    $file->move($galleryPath, $fileName);
-                    $validated['img'] = 'img/gallery/' . $fileName;
+                    $file->move($sliderPath, $fileName);
+                    $validated['img'] = 'img/sliders/' . $fileName;
                     
                     // Verify the file was actually stored
-                    if (!file_exists($galleryPath . '/' . $fileName)) {
-                        Log::error('Gallery image storage failed: File was not stored properly');
+                    if (!file_exists($sliderPath . '/' . $fileName)) {
+                        Log::error('Home slider image storage failed: File was not stored properly');
                         return back()->withErrors(['img' => 'Failed to store image. Please check server permissions and try again.'])->withInput();
                     }
                 } catch (\Exception $e) {
-                    Log::error('Gallery image storage exception: ' . $e->getMessage());
+                    Log::error('Home slider image storage exception: ' . $e->getMessage());
                     return back()->withErrors(['img' => 'Failed to store image: ' . $e->getMessage()])->withInput();
                 }
             }
 
-            $gallery->update($validated);
+            $validated['is_active'] = $request->has('is_active') ? true : false;
+            if (!isset($validated['order'])) {
+                $validated['order'] = $homeSlider->order;
+            }
 
-            return redirect()->route('admin.gallery.index')->with('success', 'Gallery image updated successfully.');
+            $homeSlider->update($validated);
+
+            return redirect()->route('admin.home-sliders.index')->with('success', 'Slider image updated successfully.');
             
         } catch (\Illuminate\Validation\ValidationException $e) {
             throw $e;
         } catch (\Exception $e) {
-            Log::error('Gallery update error: ' . $e->getMessage(), [
-                'gallery_id' => $gallery->id,
+            Log::error('Home slider update error: ' . $e->getMessage(), [
+                'slider_id' => $homeSlider->id,
                 'trace' => $e->getTraceAsString()
             ]);
             
-            return back()->withErrors(['error' => 'An error occurred while updating the gallery image. Please try again.'])->withInput();
+            return back()->withErrors(['error' => 'An error occurred while updating the slider image. Please try again.'])->withInput();
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Gallery $gallery)
+    public function destroy(HomeSlider $homeSlider)
     {
-        if ($gallery->img) {
-            $imagePath = public_path($gallery->img);
+        if ($homeSlider->img) {
+            $imagePath = public_path($homeSlider->img);
             if (file_exists($imagePath)) {
                 File::delete($imagePath);
             }
         }
 
-        $gallery->delete();
+        $homeSlider->delete();
 
-        return redirect()->route('admin.gallery.index')->with('success', 'Gallery image deleted successfully.');
+        return redirect()->route('admin.home-sliders.index')->with('success', 'Slider image deleted successfully.');
     }
 }
+

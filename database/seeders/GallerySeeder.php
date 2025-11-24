@@ -6,7 +6,6 @@ use App\Models\Gallery;
 use App\Models\GalleryCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class GallerySeeder extends Seeder
 {
@@ -16,13 +15,12 @@ class GallerySeeder extends Seeder
     public function run(): void
     {
         // Ensure the gallery directory exists
-        $storagePath = storage_path('app/public/gallery');
-        if (!File::exists($storagePath)) {
-            File::makeDirectory($storagePath, 0755, true);
+        $galleryPath = public_path('img/gallery');
+        if (!File::exists($galleryPath)) {
+            File::makeDirectory($galleryPath, 0755, true);
         }
 
         // Get all images from img/gallery folder automatically
-        $galleryPath = public_path('img/gallery');
         $availableImages = [];
         
         if (File::exists($galleryPath)) {
@@ -43,32 +41,47 @@ class GallerySeeder extends Seeder
 
         // Default titles for common image names
         $titleMap = [
-            'career-support-services' => 'Career Support Services',
-            'chairman' => 'Chairman',
-            'training' => 'Training Session',
-            'workshop' => 'Practical Workshop',
-            'graduation' => 'Graduation Ceremony',
-            'student' => 'Student Activities',
-            'classroom' => 'Classroom Learning',
+            // Scaffolding images
+            'scaffolding_001' => 'Scaffolding Training 1',
+            'scaffolding_002' => 'Scaffolding Training 2',
+            'scaffolding_003' => 'Scaffolding Training 3',
+            'scaffolding_004' => 'Scaffolding Training 4',
+            'scaffolding_005' => 'Scaffolding Training 5',
+            'scaffolding_006' => 'Scaffolding Training 6',
+            'scaffolding_007' => 'Scaffolding Training 7',
+            'scaffolding_008' => 'Scaffolding Training 8',
+            'scaffolding_009' => 'Scaffolding Training 9',
+            'scaffolding_010' => 'Scaffolding Training 10',
+            'scaffolding' => 'Scaffolding Training',
             // Welding images
-            '3g' => 'Welding 3G',
-            '4g' => 'Welding 4G',
-            '6g' => 'Welding 6G',
+            '3g' => 'Welding 3G Training',
+            '4g' => 'Welding 4G Training',
+            '6g' => 'Welding 6G Training',
+            'welding 3g' => 'Welding 3G Training',
+            'welding 6g' => 'Welding 6G Training',
             'welding' => 'Welding Training',
-            'ssw' => 'SSW Welding',
+            'ssw' => 'SSW Welding Training',
             // Pipe Fitter images
+            'pipe f 4' => 'Pipe Fitter Training 4',
+            'pipe f 5' => 'Pipe Fitter Training 5',
+            'pipe f 6' => 'Pipe Fitter Training 6',
+            'pipe f 7' => 'Pipe Fitter Training 7',
+            'pipe fitter 1' => 'Pipe Fitter Training 1',
+            'pipe fitter 3' => 'Pipe Fitter Training 3',
             'pipe f' => 'Pipe Fitter Training',
-            'pipe fitter' => 'Pipe Fitter',
+            'pipe fitter' => 'Pipe Fitter Training',
             // Steel Fitter images
+            'steel fitter 2' => 'Steel Fitter Training 2',
+            'steel fitter 3' => 'Steel Fitter Training 3',
             'steel fitter' => 'Steel Fitter Training',
             // Mechanical Fitter images
-            'm1' => 'Mechanical Fitter Training',
-            'm3' => 'Mechanical Fitter',
-            'm4' => 'Mechanical Fitter Workshop',
-            'm5' => 'Mechanical Fitter Session',
-            'm6' => 'Mechanical Fitter Practice',
-            'm7' => 'Mechanical Fitter Skills',
-            'm.jpg' => 'Mechanical Fitter',
+            'm1' => 'Mechanical Fitter Training 1',
+            'm3' => 'Mechanical Fitter Training 3',
+            'm4' => 'Mechanical Fitter Training 4',
+            'm5' => 'Mechanical Fitter Training 5',
+            'm6' => 'Mechanical Fitter Training 6',
+            'm7' => 'Mechanical Fitter Training 7',
+            'm' => 'Mechanical Fitter Training',
         ];
 
         // Get all categories
@@ -83,10 +96,11 @@ class GallerySeeder extends Seeder
 
         // Create gallery entries with images
         foreach ($availableImages as $index => $imageName) {
-            $imgPath = $this->copyImage($imageName);
-            
-            if (!$imgPath) {
-                continue; // Skip if image copy failed
+            // Check if image exists in public/img/gallery
+            $imagePath = public_path('img/gallery/' . $imageName);
+            if (!File::exists($imagePath)) {
+                $this->command->warn("Image not found: {$imageName}");
+                continue; // Skip if image doesn't exist
             }
 
             // Generate title from image name
@@ -94,6 +108,9 @@ class GallerySeeder extends Seeder
             
             // Assign category based on image filename and title
             $categoryId = $this->assignCategory($imageName, $title, $categoryIds);
+            
+            // Store path as img/gallery/filename.jpg
+            $imgPath = 'img/gallery/' . $imageName;
             
             Gallery::create([
                 'title' => $title,
@@ -126,47 +143,65 @@ class GallerySeeder extends Seeder
         }
         
         if ($matchedTitle) {
-            // For welding images, add the type (3G, 4G, 6G, etc.)
-            if (str_contains($nameLower, 'welding') || str_contains($nameLower, '3g') || str_contains($nameLower, '4g') || str_contains($nameLower, '6g')) {
-                if (str_contains($nameLower, '3g')) {
-                    return 'Welding 3G Training';
-                } elseif (str_contains($nameLower, '4g')) {
-                    return 'Welding 4G Training';
-                } elseif (str_contains($nameLower, '6g')) {
-                    return 'Welding 6G Training';
-                } elseif (str_contains($nameLower, 'ssw')) {
-                    return 'SSW Welding Training';
-                }
-                return 'Welding Training';
-            }
-            
-            // For pipe fitter images
-            if (str_contains($nameLower, 'pipe')) {
-                if (preg_match('/pipe\s*f\s*(\d+)/i', $nameLower, $matches)) {
-                    return 'Pipe Fitter Training ' . $matches[1];
-                }
-                return 'Pipe Fitter Training';
-            }
-            
-            // For steel fitter images
-            if (str_contains($nameLower, 'steel')) {
-                if (preg_match('/steel\s*fitter\s*(\d+)/i', $nameLower, $matches)) {
-                    return 'Steel Fitter Training ' . $matches[1];
-                }
-                return 'Steel Fitter Training';
-            }
-            
-            // For mechanical fitter images
-            if (str_contains($nameLower, 'm') && (str_contains($nameLower, 'm1') || str_contains($nameLower, 'm3') || str_contains($nameLower, 'm4') || str_contains($nameLower, 'm5') || str_contains($nameLower, 'm6') || str_contains($nameLower, 'm7'))) {
-                return $matchedTitle;
-            }
-            
             return $matchedTitle;
         }
         
-        // Clean up WhatsApp image names
-        if (str_contains($nameLower, 'whatsapp')) {
-            return 'Training Activity ' . ($index + 1);
+        // Handle specific file patterns
+        // Scaffolding images
+        if (preg_match('/scaffolding[_\s]?(\d+)/i', $nameLower, $matches)) {
+            $num = (int)$matches[1];
+            return 'Scaffolding Training ' . $num;
+        }
+        
+        // Welding images with specific patterns
+        if (preg_match('/welding\s*(\d+g)/i', $nameLower, $matches)) {
+            return 'Welding ' . strtoupper($matches[1]) . ' Training';
+        }
+        if (preg_match('/^(\d+g)\s*(\d+)?/i', $nameLower, $matches)) {
+            $type = strtoupper($matches[1]);
+            $num = isset($matches[2]) ? ' ' . $matches[2] : '';
+            return 'Welding ' . $type . $num . ' Training';
+        }
+        if (str_contains($nameLower, 'ssw')) {
+            return 'SSW Welding Training';
+        }
+        
+        // Pipe Fitter images
+        if (preg_match('/pipe\s*f\s*(\d+)/i', $nameLower, $matches)) {
+            return 'Pipe Fitter Training ' . $matches[1];
+        }
+        if (preg_match('/pipe\s*fitter\s*(\d+)?/i', $nameLower, $matches)) {
+            $num = isset($matches[1]) ? ' ' . $matches[1] : '';
+            return 'Pipe Fitter Training' . $num;
+        }
+        
+        // Steel Fitter images
+        if (preg_match('/steel\s*fitter\s*(\d+)?/i', $nameLower, $matches)) {
+            $num = isset($matches[1]) ? ' ' . $matches[1] : '';
+            return 'Steel Fitter Training' . $num;
+        }
+        
+        // Mechanical Fitter images
+        if (preg_match('/^m(\d+)?$/i', $nameLower, $matches)) {
+            $num = isset($matches[1]) ? ' ' . $matches[1] : '';
+            return 'Mechanical Fitter Training' . $num;
+        }
+        
+        // Clean up WhatsApp image names - Scaffolding from 2025-11-20
+        if (str_contains($nameLower, 'whatsapp') && str_contains($nameLower, '2025-11-20')) {
+            // Extract time or number from filename for better title
+            if (preg_match('/\((\d+)\)/', $nameLower, $matches)) {
+                return 'Scaffolding Training Activity ' . $matches[1];
+            }
+            return 'Scaffolding Training Activity';
+        }
+        
+        // Older WhatsApp images from 2025-11-18
+        if (str_contains($nameLower, 'whatsapp') && str_contains($nameLower, '2025-11-18')) {
+            if (preg_match('/\((\d+)\)/', $nameLower, $matches)) {
+                return 'Training Activity ' . $matches[1];
+            }
+            return 'Training Activity';
         }
         
         // Convert filename to title (replace underscores/hyphens with spaces, capitalize)
@@ -193,7 +228,8 @@ class GallerySeeder extends Seeder
         $imageNameLower = strtolower($imageName);
         $titleLower = strtolower($title);
         
-        // First, check for exact Welding filenames (most reliable - these are known welding images)
+        // First, check for exact filenames (most reliable)
+        // Welding images
         $weldingFiles = [
             '3g.jpg', 
             '4g.jpg', 
@@ -212,8 +248,83 @@ class GallerySeeder extends Seeder
             }
         }
         
+        // Scaffolding images
+        $scaffoldingFiles = [
+            'scaffolding_001.jpeg',
+            'scaffolding_002.jpeg',
+            'scaffolding_003.jpeg',
+            'scaffolding_004.jpeg',
+            'scaffolding_005.jpeg',
+            'scaffolding_006.jpeg',
+            'scaffolding_007.jpeg',
+            'scaffolding_008.jpeg',
+            'scaffolding_009.jpeg',
+            'scaffolding_010.jpeg'
+        ];
+        foreach ($scaffoldingFiles as $scaffoldingFile) {
+            if ($imageNameLower === strtolower($scaffoldingFile)) {
+                $category = GalleryCategory::where('slug', 'scaffolding')->first();
+                if ($category) {
+                    return $category->id;
+                }
+            }
+        }
+        
+        // Pipe Fitter images
+        $pipeFitterFiles = [
+            'pipe f 4.jpg',
+            'pipe f 5.jpg',
+            'pipe f 6.jpg',
+            'pipe f 7.jpg',
+            'pipe fitter.jpg',
+            'pipe fitter 1.jpg',
+            'pipe fitter 3.jpg'
+        ];
+        foreach ($pipeFitterFiles as $pipeFitterFile) {
+            if ($imageNameLower === strtolower($pipeFitterFile)) {
+                $category = GalleryCategory::where('slug', 'pipe-fitter')->first();
+                if ($category) {
+                    return $category->id;
+                }
+            }
+        }
+        
+        // Steel Fitter images
+        $steelFitterFiles = [
+            'steel fitter.jpg',
+            'steel fitter 2.jpg',
+            'steel fitter 3.jpg'
+        ];
+        foreach ($steelFitterFiles as $steelFitterFile) {
+            if ($imageNameLower === strtolower($steelFitterFile)) {
+                $category = GalleryCategory::where('slug', 'steel-fitter')->first();
+                if ($category) {
+                    return $category->id;
+                }
+            }
+        }
+        
+        // Mechanical Fitter images
+        $mechanicalFitterFiles = [
+            'm.jpg',
+            'm1.jpg',
+            'm3.jpg',
+            'm4.jpg',
+            'm5.jpg',
+            'm6.jpg',
+            'm7.jpg'
+        ];
+        foreach ($mechanicalFitterFiles as $mechanicalFitterFile) {
+            if ($imageNameLower === strtolower($mechanicalFitterFile)) {
+                $category = GalleryCategory::where('slug', 'mechanical-fitter')->first();
+                if ($category) {
+                    return $category->id;
+                }
+            }
+        }
+        
         // Also check if filename starts with known welding patterns
-        if (preg_match('/^(3g|4g|6g|ssw|welding)\./i', $imageNameLower)) {
+        if (preg_match('/^(3g|4g|6g|ssw|welding)/i', $imageNameLower)) {
             $category = GalleryCategory::where('slug', 'welding')->first();
             if ($category) {
                 return $category->id;
@@ -232,22 +343,31 @@ class GallerySeeder extends Seeder
             // Pipe Fitter - check full name first
             'pipe fitter' => 'pipe-fitter',
             'pipefitter' => 'pipe-fitter',
-            'pipe f 4.jpg' => 'pipe-fitter',
-            'pipe f 5.jpg' => 'pipe-fitter',
-            'pipe f 6.jpg' => 'pipe-fitter',
-            'pipe f 7.jpg' => 'pipe-fitter',
+            'pipe f 4' => 'pipe-fitter',
+            'pipe f 5' => 'pipe-fitter',
+            'pipe f 6' => 'pipe-fitter',
+            'pipe f 7' => 'pipe-fitter',
+            'pipe fitter 1' => 'pipe-fitter',
+            'pipe fitter 3' => 'pipe-fitter',
             'pipe f' => 'pipe-fitter',
             'pipef' => 'pipe-fitter',
             // Steel Fitter - check full name first
             'steel fitter' => 'steel-fitter',
             'steelfitter' => 'steel-fitter',
-            'steel fitter 2.jpg' => 'steel-fitter',
-            'steel fitter 3.jpg' => 'steel-fitter',
-            'steel fitter.jpg' => 'steel-fitter',
-            // Scaffolding (Scrab Holding) - check WhatsApp images from 2025-11-20
+            'steel fitter 2' => 'steel-fitter',
+            'steel fitter 3' => 'steel-fitter',
+            // Scaffolding - check specific files and WhatsApp images from 2025-11-20
+            'scaffolding_001' => 'scaffolding',
+            'scaffolding_002' => 'scaffolding',
+            'scaffolding_003' => 'scaffolding',
+            'scaffolding_004' => 'scaffolding',
+            'scaffolding_005' => 'scaffolding',
+            'scaffolding_006' => 'scaffolding',
+            'scaffolding_007' => 'scaffolding',
+            'scaffolding_008' => 'scaffolding',
+            'scaffolding_009' => 'scaffolding',
+            'scaffolding_010' => 'scaffolding',
             'scaffolding' => 'scaffolding',
-            'scrab holding' => 'scaffolding',
-            'scrabholding' => 'scaffolding',
             // Mechanical Fitter - check specific M patterns
             'mechanical fitter' => 'mechanical-fitter',
             'mechanicalfitter' => 'mechanical-fitter',
@@ -336,23 +456,4 @@ class GallerySeeder extends Seeder
         return null;
     }
 
-    /**
-     * Copy image from public/img/gallery to storage/app/public/gallery
-     */
-    private function copyImage(?string $imageName): ?string
-    {
-        if (!$imageName) {
-            return null;
-        }
-
-        $sourcePath = public_path('img/gallery/' . $imageName);
-        $destinationPath = 'gallery/' . $imageName;
-
-        if (File::exists($sourcePath)) {
-            Storage::disk('public')->put($destinationPath, File::get($sourcePath));
-            return $destinationPath;
-        }
-
-        return null;
-    }
 }

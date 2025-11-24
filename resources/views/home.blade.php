@@ -158,40 +158,20 @@
                 <div style="position: relative; border-radius: 1.5rem; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,.3); height: clamp(300px, 50vw, 500px);">
                     <!-- Image Carousel Container -->
                     <div id="aboutImageCarousel" style="position: relative; width: 100%; height: 100%;">
-                        <!-- Images will be dynamically inserted here -->
-                        <img src="{{ asset('img/about/Training-session.jpg') }}" 
-                             alt="Training session" 
-                             class="carousel-image" 
-                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;">
-                      
-                        <img src="{{ asset('img/about/Students-learning.jpg') }}" 
-                             alt="Students learning" 
-                             class="carousel-image active" 
-                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1.5s ease-in-out;">
-                        <img src="{{ asset('img/about/Trainer-teaching.jpg') }}" 
-                             alt="Trainer teaching" 
-                             class="carousel-image" 
-                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;">
-                       <img src="{{ asset('img/about/Welding-training.jpg') }}" 
-                             alt="Welding training" 
-                             class="carousel-image" 
-                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;">
-                        <img src="{{ asset('img/about/Pipe-fitting-training.jpg') }}" 
-                             alt="Pipe fitting training" 
-                             class="carousel-image" 
-                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;">
-                        <img src="{{ asset('img/about/Steel-fitter-training.jpg') }}" 
-                             alt="Steel fitter training" 
-                             class="carousel-image" 
-                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;">
-                        <img src="{{ asset('img/about/Practical-training.jpg') }}" 
-                             alt="Practical training" 
-                             class="carousel-image" 
-                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;">
-                        <img src="{{ asset('img/about/Workshop-activity.jpg') }}" 
-                             alt="Workshop activity" 
-                             class="carousel-image" 
-                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;">
+                        @if($sliderImages->count() > 0)
+                            @foreach($sliderImages as $index => $slider)
+                                <img src="{{ asset($slider->img) }}" 
+                                     alt="{{ $slider->title ?? 'Training Image' }}" 
+                                     class="carousel-image {{ $index === 0 ? 'active' : '' }}" 
+                                     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: {{ $index === 0 ? '1' : '0' }}; transition: opacity 1.5s ease-in-out;">
+                            @endforeach
+                        @else
+                            <!-- Fallback images if no slider images available -->
+                            <img src="{{ asset('img/about/Training-session.jpg') }}" 
+                                 alt="Training session" 
+                                 class="carousel-image active" 
+                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 1.5s ease-in-out;">
+                        @endif
                     </div>
                     
                     <!-- Gradient Overlay for better text readability -->
@@ -207,14 +187,17 @@
                     
                     <!-- Carousel Indicators -->
                     <div style="position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; z-index: 15; pointer-events: auto;">
-                        <span class="carousel-indicator active" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 1; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)';" onmouseout="this.style.transform='scale(1)';"></span>
-                        <span class="carousel-indicator" data-index="1" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.5; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='0.5';"></span>
-                        <span class="carousel-indicator" data-index="2" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.5; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='0.5';"></span>
-                        <span class="carousel-indicator" data-index="3" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.5; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='0.5';"></span>
-                        <span class="carousel-indicator" data-index="4" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.5; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='0.5';"></span>
-                        <span class="carousel-indicator" data-index="5" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.5; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='0.5';"></span>
-                        <span class="carousel-indicator" data-index="6" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.5; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='0.5';"></span>
-                        <span class="carousel-indicator" data-index="7" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.5; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='0.5';"></span>
+                        @if($sliderImages->count() > 0)
+                            @foreach($sliderImages as $index => $slider)
+                                <span class="carousel-indicator {{ $index === 0 ? 'active' : '' }}" 
+                                      data-index="{{ $index }}" 
+                                      style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: {{ $index === 0 ? '1' : '0.5' }}; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" 
+                                      onmouseover="this.style.transform='scale(1.2)'; this.style.opacity='0.8';" 
+                                      onmouseout="this.style.transform='scale(1)'; this.style.opacity='{{ $index === 0 ? '1' : '0.5' }}';"></span>
+                            @endforeach
+                        @else
+                            <span class="carousel-indicator active" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; opacity: 1; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='scale(1.2)';" onmouseout="this.style.transform='scale(1)';"></span>
+                        @endif
                     </div>
                 </div>
 
